@@ -12,7 +12,7 @@ export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
 
 # Keychain (SSH Agent)
-eval $(keychain --eval ~/.ssh/id_ed25519)
+eval $(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)
 
 # Greeting
 cowsay "Bonjour! :D" | lolcat
