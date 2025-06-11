@@ -5,33 +5,51 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# --- Environment Variables ---
+# Environment Variables
 export PATH="$PATH:$HOME/.local/bin"
 export EDITOR=micro
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
 
-# Keychain (SSH Agent)
+# Keychain & Shell Enhancements
 eval $(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)
+eval "$(thefuck --alias)"
 
 # Greeting
 cowsay "Bonjour! :D" | lolcat
 
 # Aliases
 ## Core tools
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias rm="rm -r" # Allow to remove directories
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+alias rm="rm -r"
 
 ## Package management
 alias gimme="paru -S"
 alias yeet="paru -Rns"
 alias lookup="paru -Ss"
 
-## Scripts and shortcuts
+## Custom scripts
 alias newproj="$HOME/projects/new_proj.sh"
-alias 2fa="PASSWORD_STORE_DIR=$HOME/.2fa pass otp"
+
+## Python
+alias py="python"
 alias venva="source .venv/bin/activate"
+
+## Networking
+alias pubip="curl ifconfig.me"
+alias locip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
+alias serve="python -m http.server 8000"
+
+## Navigation
+alias tree="exa --tree"
+
+## Bashrc shortcuts
+alias sbrc="source ~/.bashrc"
+alias ebrc="e ~/.bashrc"
+
+## Fun
+alias moo="fortune | cowsay | lolcat"
 
 ## GPU
 alias intel="optimus-manager --switch intel --no-confirm"
@@ -41,24 +59,15 @@ alias gpu="optimus-manager --status"
 
 # Functions
 
-## Quick edit the bashrc
-ebrc() {
-   e ~/.bashrc
-}
-
-## Function to shorten $PWD to ~ if under $HOME
+## Shorten PWD
 prompt_path() {
-  if [[ $PWD == $HOME* ]]; then
-    echo "~${PWD#$HOME}"
-  else
-    echo "$PWD"
-  fi
+  [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
 }
 
-## Runs the last command but then with sudo
+## Run last command with sudo
 pls() {
   eval "sudo $(fc -ln -1)"
 }
 
 # Prompt
-PS1='\[\e[1;32m\]<\u: \[\e[0;34m\]$(prompt_path)\[\e[1;32m\]> \[\e[0m\]'
+PS1="\[\e[1;32m\]<\u: \[\e[0;34m\]$(prompt_path)\[\e[1;32m\]> \[\e[0m\]"
