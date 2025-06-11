@@ -4,7 +4,6 @@
 [user]
     name = Gijs
     email = gijstenberg@gmail.com
-    signingkey = 4A8A37B3C0B585F1
     signingkey = CF0B6289B43055CD
 
 [commit]
