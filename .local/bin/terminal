@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if wmctrl -lx | grep -iq 'alacritty.Alacritty'; then
+  win_id=$(wmctrl -lx | grep -i 'alacritty.Alacritty' | head -n1 | awk '{print $1}')
+  wmctrl -ia "$win_id"
+else
+  alacritty &
+fi

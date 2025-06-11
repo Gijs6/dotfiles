@@ -1,0 +1,68 @@
+[init]
+	defaultBranch = main
+[user]
+        name = Gijs
+        email = gijstenberg@gmail.com
+	sigingkey = 4A8A37B3C0B585F1
+	signingkey = CF0B6289B43055CD
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[alias]
+st = status
+br = branch --column
+co = checkout
+cp = cherry-pick
+fl = push --force-with-lease
+
+# Use options by default
+blame = -w -C -C -C
+stash = stash --all -u
+
+# More logical names
+undo = reset --soft HEAD~1
+stage = add
+unstage = restore --staged
+amend = commit --amend
+fuckit = reset --hard
+
+# Remove branches that have been deleted on the remote
+pr =! git fetch --all --prune && git branch -vv | grep '\\(origin\\|fork\\|src\\)/.*: gone]' | awk '{print $1}' | xargs git branch -D
+rmbr = branch -D
+
+# Fancy logs
+h = log --graph --date=default-local --pretty=format:'%C(yellow)%h%C(reset) %C(green)%cd%C(reset) %C(blue)%an%C(reset)%C(red)%d%C(reset) %s'
+ha = h --all
+	undo = reset --soft HEAD~1
+
+[pull]
+rebase = true
+
+[push]
+autoSetupRemote = true
+
+[branch]
+sort = -committerdate
+
+[rerere]
+enabled = true
+
+# Avoid data corruption
+[transfer]
+fsckobjects = true
+[fetch]
+fsckobjects = true
+[receive]
+fsckobjects = true
+
+# Handle LFS properly
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+[core]
+	autocrlf = input
+[gpg]
+	program = gpg

@@ -1,0 +1,43 @@
+{
+    "workbench.colorTheme": "GitHub Dark Default",
+    "editor.fontFamily": "\"JetBrains Mono\", \"Source Code Pro\", \"Ubuntu Mono\", monospace",
+    "explorer.confirmDelete": false,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 10000000,
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "workbench.settings.applyToAllProfiles": [],
+    "terminal.integrated.tabs.title": "${process}",
+    "workbench.settings.openDefaultKeybindings": true,
+    "python.createEnvironment.contentButton": "show",
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.terminal.activateEnvironment": true,
+    "gitlens.currentLine.enabled": false,
+    "git.confirmSync": false,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.wordWrap": "on",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.navigationControl.enabled": false,
+    "markdownlint.config": {
+        "MD025": {
+            "front_matter_title": ""
+        }
+    }
+}

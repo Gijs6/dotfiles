@@ -1,0 +1,46 @@
+#!/bin/sh -eu
+# Wrapper around $EDITOR, similar to sudoedit. Creates files if they don't exist.
+
+if [ -z "${1:-}" ]; then
+  $EDITOR
+  exit 0
+fi
+
+edit() {
+  if [ -w "$1" ]; then
+    $EDITOR "$1"
+  else
+    sudoedit "$1"
+  fi
+}
+
+create() {
+  dir=$(dirname "$1")
+  if [ ! -d "$dir" ]; then
+    if [ -w "$(dirname "$dir")" ]; then
+      mkdir -p "$dir"
+    else
+      sudo mkdir -p "$dir"
+    fi
+  fi
+
+  if [ -w "$dir" ]; then
+    touch "$1"
+  else
+    sudo touch "$1"
+  fi
+}
+
+if [ -e "$1" ]; then
+  if [ -f "$1" ]; then
+    edit "$1"
+  else
+    echo "Not a file."
+    exit 1
+  fi
+else
+  echo "File does not exist, creating..."
+  create "$1"
+  edit "$1"
+fi
+
