@@ -1,7 +1,7 @@
 // Place your key bindings in this file to override the defaults
 [
     {
-        "key": "shift+alt+f",
+        "key": "ctrl+k ctrl+f",
         "command": "editor.action.formatDocument",
         "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
     },
@@ -39,5 +39,10 @@
         "args": {
             "snippet": "{{ gettext('${TM_SELECTED_TEXT}') }}"
         }
+    },
+    {
+        "key": "ctrl+k ctrl+f",
+        "command": "-editor.action.formatSelection",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]
