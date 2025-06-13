@@ -28,6 +28,7 @@ alias rm="rm -r"
 alias gimme="paru -S"
 alias yeet="paru -Rns"
 alias lookup="paru -Ss"
+alias peek="paru -Qi"
 
 ## Custom scripts
 alias newproj="$HOME/projects/new_proj.sh"
