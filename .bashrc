@@ -76,4 +76,4 @@ ccat() {
 }
 
 # Prompt
-PS1="\[\e[1;32m\]<\u: \[\e[0;34m\]$(prompt_path)\[\e[1;32m\]> \[\e[0m\]"
+PS1='\[\e[1;32m\]<\u: \[\e[0;34m\]$(prompt_path)\[\e[1;32m\]> \[\e[0m\]'
