@@ -35,6 +35,7 @@ alias newproj="$HOME/projects/new_proj.sh"
 
 ## Python
 alias py="python"
+alias venvm="python -m venv .venv && source .venv/bin/activate"
 alias venva="source .venv/bin/activate"
 
 ## Networking
