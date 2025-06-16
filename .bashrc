@@ -10,6 +10,7 @@ export PATH="$PATH:$HOME/.local/bin"
 export EDITOR=micro
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
+export TERM=xterm
 
 # Keychain & Shell Enhancements
 eval $(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)
