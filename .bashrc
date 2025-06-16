@@ -16,7 +16,7 @@ eval $(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)
 eval "$(thefuck --alias)"
 
 # Greeting
-cowsay "Bonjour! :D" | lolcat
+fortune | cowsay | lolcat
 
 # Aliases
 ## Core tools
@@ -30,8 +30,9 @@ alias yeet="paru -Rns"
 alias lookup="paru -Ss"
 alias peek="paru -Qi"
 
-## Custom scripts
+## Custom scripts/shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
+alias gitcomgraph="$HOME/projects/commitstats/.venv/bin/python $HOME/projects/commitstats/priv2.py"
 
 ## Python
 alias py="python"
