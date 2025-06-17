@@ -34,6 +34,7 @@ alias peek="paru -Qi"
 ## Custom scripts/shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
 alias gitcomgraph="$HOME/projects/commitstats/.venv/bin/python $HOME/projects/commitstats/priv2.py"
+alias dcupdate="paru -Syu discord" # For when the discord updater bugs again
 
 ## Python
 alias py="python"
