@@ -7,6 +7,7 @@
 
 # Environment Variables
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export EDITOR=micro
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
@@ -17,7 +18,7 @@ eval $(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)
 eval "$(thefuck --alias)"
 
 # Greeting
-fortune | cowsay | lolcat
+fortune | cowsay -f tux | lolcat
 
 # Aliases
 ## Core tools
@@ -42,7 +43,7 @@ alias venvm="python -m venv .venv && source .venv/bin/activate"
 alias venva="source .venv/bin/activate"
 
 ## Networking
-alias pubip="curl ifconfig.me"
+alias pubip="curl -s ifconfig.me -w '\n'"
 alias locip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 alias serve="python -m http.server 8000"
 
@@ -64,11 +65,6 @@ alias gpu="optimus-manager --status"
 
 # Functions
 
-## Shorten PWD
-prompt_path() {
-  [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
-}
-
 ## Run last command with sudo
 pls() {
   eval "sudo $(fc -ln -1)"
@@ -80,4 +76,9 @@ ccat() {
 }
 
 # Prompt
-PS1='\[\e[1;32m\]<\u: \[\e[0;34m\]$(prompt_path)\[\e[1;32m\]> \[\e[0m\]'
+## Shorten PWD
+prompt_path() {
+  [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
+}
+
+PS1='\[\e[1;32m\]<\u: \[\e[0;34m\]$(prompt_path)\[\e[1;32m\]> \[\e[0m\]' # Needs to be single quotes!!!
