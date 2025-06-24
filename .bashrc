@@ -7,7 +7,6 @@
 
 # Environment Variables
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export EDITOR=micro
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
