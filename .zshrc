@@ -1,27 +1,40 @@
-#
-# ~/.bashrc
-#
+# Exit if not running interactively
 
-# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Basic Settings and History
+
+HISTFILE=~/.histfile
+HISTSIZE=100
+SAVEHIST=1000
+unsetopt beep
+bindkey -e
+
+# Zsh Completion Initialization
+
+zstyle ':compinstall' filename '/home/ggijs/.zshrc'
+autoload -Uz compinit
+compinit
+
 # Environment Variables
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
-export EDITOR=micro
+
+export PATH="$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
+export EDITOR="micro"
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
-export TERM=xterm
+export TERM="xterm"
 
+# Keychain and stuff
 
-# Keychain & Shell Enhancements
-eval $(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)
+eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)"
 eval "$(thefuck --alias)"
 
 # Greeting
+
 fortune | cowsay -f tux | lolcat
 
 # Aliases
+
 ## Core tools
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
@@ -35,7 +48,7 @@ alias peek="paru -Qi"
 
 ## Custom scripts/shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
-alias gitcomgraph="$HOME/projects/commitstats/.venv/bin/python $HOME/projects/commitstats/priv2.py"
+alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projects/pers/commitstats/priv2.py"
 alias dcupdate="paru -Syu discord" # For when the discord updater bugs again
 
 ## Python
@@ -51,14 +64,14 @@ alias serve="python -m http.server 8000"
 ## Navigation
 alias tree="exa --tree"
 
-## Bashrc shortcuts
-alias sbrc="source ~/.bashrc"
-alias ebrc="e ~/.bashrc"
+## zshrc shortcuts
+alias szrc="source ~/.zshrc"
+alias ezrc="e ~/.zshrc"
 
 ## Fun
 alias moo="fortune | cowsay | lolcat"
 
-## GPU
+## GPU management
 alias intel="optimus-manager --switch intel --no-confirm"
 alias nvidia="optimus-manager --switch nvidia --no-confirm"
 alias hybrid="optimus-manager --switch hybrid --no-confirm"
@@ -68,18 +81,20 @@ alias gpu="optimus-manager --status"
 
 ## Run last command with sudo
 pls() {
-  eval "sudo $(fc -ln -1)"
+  sudo $(fc -ln -1)
 }
 
-## Cat and copy
+## Cat and copy to clipboard
 ccat() {
   cat "$1" | tee >(xclip -selection clipboard)
 }
 
 # Prompt
-## Shorten PWD
+
+autoload -Uz colors && colors
+
 prompt_path() {
   [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
 }
 
-PS1='\[\e[1;32m\]<\u: \[\e[0;34m\]$(prompt_path)\[\e[1;32m\]> \[\e[0m\]' # Needs to be single quotes!!!
+PROMPT="%{$fg[green]%}<%n: %{$fg[blue]%}$(prompt_path)%{$fg[green]%}> %{$reset_color%}"
