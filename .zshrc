@@ -97,4 +97,4 @@ prompt_path() {
   [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
 }
 
-PROMPT="%{$fg[green]%}<%n: %{$fg[blue]%}$(prompt_path)%{$fg[green]%}> %{$reset_color%}"
+PROMPT="%{$fg[green]%}<%n: %{$fg[blue]%}%~%{$fg[green]%}> %{$reset_color%}"
