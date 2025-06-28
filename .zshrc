@@ -13,6 +13,7 @@ bindkey -e
 # Zsh Completion Initialization
 
 zstyle ':compinstall' filename '/home/ggijs/.zshrc'
+zstyle ':completion:*' menu select
 autoload -Uz compinit
 compinit
 

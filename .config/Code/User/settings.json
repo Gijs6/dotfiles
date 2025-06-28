@@ -50,5 +50,6 @@
     "markdown.styles": [
         "file:///home/ggijs/projects/school.gijs6.nl/assets/styles/basic.css",
         "file:///home/ggijs/projects/school.gijs6.nl/assets/styles/summaries.css"
-    ]
+    ],
+    "editor.inlineSuggest.enabled": false
 }
