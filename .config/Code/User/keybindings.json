@@ -11,16 +11,12 @@
         "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
     },
     {
-        "key": "ctrl+k s",
+        "key": "ctrl+k ctrl+s",
         "command": "workbench.action.files.saveFiles"
     },
     {
-        "key": "ctrl+k ctrl+s",
-        "command": "-workbench.action.openGlobalKeybindings"
-    },
-    {
         "key": "ctrl+k s",
-        "command": "-workbench.action.files.saveWithoutFormatting"
+        "command": "workbench.action.files.saveFiles"
     },
     {
         "key": "shift+alt+f",
