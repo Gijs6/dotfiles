@@ -70,3 +70,7 @@
 
 [gpg]
     program = gpg
+
+[includeIf "gitdir:/home/ggijs/projects/qd/"]
+    path = ~/.gitconfig-qd
+

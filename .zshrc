@@ -27,7 +27,7 @@ export TERM="xterm"
 
 # Keychain and stuff
 
-eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh)"
+eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh ~/.ssh/qd)"
 eval "$(thefuck --alias)"
 
 # Greeting
@@ -56,9 +56,13 @@ alias dcupdate="paru -Syu discord" # For when the discord updater bugs again
 alias py="python"
 alias venvm="python -m venv .venv && source .venv/bin/activate"
 alias venva="source .venv/bin/activate"
+alias venvre="rm -rf .venv && python -m venv .venv && source .venv/bin/activate"
+
+## Elixir
+alias ex="elixir"
 
 ## Networking
-alias pubip="curl -s ifconfig.me -w '\n'"
+alias pubip="curl -s4 ifconfig.me -w '\n'"
 alias locip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 alias serve="python -m http.server 8000"
 
