@@ -25,10 +25,24 @@ export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
 export TERM="xterm"
 
+export MASTER_DB_PARAMS="host=34.76.242.173 \
+                         sslrootcert=$HOME/.qsecrets/master-db/server-ca.pem \
+                         sslcert=$HOME/.qsecrets/master-db/client-cert.pem \
+                         sslkey=$HOME/.qsecrets/master-db/client-key.pem \
+                         sslmode=verify-ca"
+export QDENTITY_DB_PARAMS="host=35.233.53.53 \
+                         sslrootcert=$HOME/.qsecrets/qdentity-db/server-ca.pem \
+                         sslcert=$HOME/.qsecrets/qdentity-db/client-cert.pem \
+                         sslkey=$HOME/.qsecrets/qdentity-db/client-key.pem \
+                         sslmode=verify-ca"
+
+
+
 # Keychain and stuff
 
 eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh ~/.ssh/qd)"
 eval "$(thefuck --alias)"
+
 
 # Greeting
 
@@ -102,4 +116,6 @@ prompt_path() {
   [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
 }
 
-PROMPT="%{$fg[green]%}<%n: %{$fg[blue]%}%~%{$fg[green]%}> %{$reset_color%}"
+PROMPT="%{$fg[green]%}<%*:%{$fg[blue]%}%~%{$fg[green]%}> %{$reset_color%}"
+
+eval "$(mise activate zsh)"

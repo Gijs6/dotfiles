@@ -44,5 +44,10 @@
     {
         "key": "ctrl+shift+l",
         "command": "workbench.action.terminal.clear"
+    },
+    {
+        "key": "ctrl+k f",
+        "command": "-workbench.action.closeFolder",
+        "when": "emptyWorkspaceSupport && workbenchState != 'empty'"
     }
 ]
