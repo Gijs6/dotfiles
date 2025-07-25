@@ -19,7 +19,7 @@
     "terminal.integrated.tabs.title": "${process}",
     "workbench.settings.openDefaultKeybindings": true,
     "python.createEnvironment.contentButton": "show",
-    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "python.defaultInterpreterPath": "/bin/python",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.terminal.activateEnvironment": true,
     "gitlens.currentLine.enabled": false,
@@ -51,5 +51,6 @@
         "file:///home/ggijs/projects/school.gijs6.nl/assets/styles/basic.css",
         "file:///home/ggijs/projects/school.gijs6.nl/assets/styles/summaries.css"
     ],
-    "editor.inlineSuggest.enabled": false
+    "editor.inlineSuggest.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false
 }

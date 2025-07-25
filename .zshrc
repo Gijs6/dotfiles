@@ -36,6 +36,7 @@ export QDENTITY_DB_PARAMS="host=35.233.53.53 \
                          sslkey=$HOME/.qsecrets/qdentity-db/client-key.pem \
                          sslmode=verify-ca"
 
+export LC_CTYPE=en_GB.UTF-8
 
 
 # Keychain and stuff
@@ -71,6 +72,8 @@ alias py="python"
 alias venvm="python -m venv .venv && source .venv/bin/activate"
 alias venva="source .venv/bin/activate"
 alias venvre="rm -rf .venv && python -m venv .venv && source .venv/bin/activate"
+alias reqtxt="pip freeze > requirements.txt"
+alias "pip i"="pip install"
 
 ## Elixir
 alias ex="elixir"
