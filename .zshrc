@@ -39,15 +39,17 @@ export QDENTITY_DB_PARAMS="host=35.233.53.53 \
 export LC_CTYPE=en_GB.UTF-8
 
 
-# Keychain and stuff
+# Skip in TTY
+if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
+  eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh ~/.ssh/qd)"
 
-eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh ~/.ssh/qd)"
+  fortune | cowsay -f tux | lolcat
+else
+  echo "Welcome."
+fi
+
 eval "$(thefuck --alias)"
 
-
-# Greeting
-
-fortune | cowsay -f tux | lolcat
 
 # Aliases
 
@@ -60,7 +62,7 @@ alias rm="rm -r"
 alias gimme="paru -S"
 alias yeet="paru -Rns"
 alias lookup="paru -Ss"
-alias peek="paru -Qi"
+alias peeek="paru -Qi"
 
 ## Custom scripts/shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
@@ -119,6 +121,6 @@ prompt_path() {
   [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
 }
 
-PROMPT="%{$fg[green]%}<%*:%{$fg[blue]%}%~%{$fg[green]%}> %{$reset_color%}"
+PROMPT="%{$fg[green]%}<%n@%m:%{$fg[blue]%}%~%{$fg[green]%}> %{$reset_color%}"
 
 eval "$(mise activate zsh)"
