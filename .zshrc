@@ -1,6 +1,9 @@
 # Exit if not running interactively
 
 [[ $- != *i* ]] && return
+if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]]; then
+  return
+fi
 
 # Basic Settings and History
 
@@ -40,16 +43,11 @@ export LC_CTYPE=en_GB.UTF-8
 
 
 # Skip in TTY
-if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
-  eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh ~/.ssh/qd)"
-
-  fortune | cowsay -f tux | lolcat
-else
-  echo "Welcome."
-fi
-
+eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh ~/.ssh/qd)"
 eval "$(thefuck --alias)"
 
+
+fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
 
 # Aliases
 
@@ -57,6 +55,7 @@ eval "$(thefuck --alias)"
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 alias rm="rm -r"
+alias qu="exit"
 
 ## Package management
 alias gimme="paru -S"
