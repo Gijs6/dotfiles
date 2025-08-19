@@ -1,0 +1,12 @@
+[Unit]
+Description=Linio
+After=network.target
+
+[Service]
+ExecStart=%h/.local/bin/linio %h/notes
+Restart=always
+WorkingDirectory=%h/notes
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
+
+[Install]
+WantedBy=default.target
