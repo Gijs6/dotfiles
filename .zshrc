@@ -80,7 +80,6 @@ alias venvm="python -m venv .venv && source .venv/bin/activate"
 alias venva="source .venv/bin/activate"
 alias venvre="rm -rf .venv && python -m venv .venv && source .venv/bin/activate"
 alias reqtxt="pip freeze > requirements.txt"
-alias "pip i"="pip install"
 
 # Elixir
 alias ex="elixir"
