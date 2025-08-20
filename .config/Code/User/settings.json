@@ -54,5 +54,6 @@
     "editor.inlineSuggest.enabled": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "svelte.enable-ts-plugin": true,
-    "colorize.ruler_decoration": false
+    "colorize.ruler_decoration": false,
+    "editor.minimap.showSlider": "always"
 }

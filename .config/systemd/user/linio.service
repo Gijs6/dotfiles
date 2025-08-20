@@ -3,9 +3,9 @@ Description=Linio
 After=network.target
 
 [Service]
-ExecStart=%h/.local/bin/linio %h/notes
+ExecStart=%h/.local/bin/linio %h/scribbles
 Restart=always
-WorkingDirectory=%h/notes
+WorkingDirectory=%h/scribbles
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
 
 [Install]
