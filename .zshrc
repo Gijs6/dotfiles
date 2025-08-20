@@ -120,11 +120,25 @@ ccat() {
 
 # -----------------------------
 # Prompt
-
+# -----------------------------
 autoload -Uz colors && colors
 
 prompt_path() {
   [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
 }
 
-PROMPT="%{$fg[green]%}<%n@%m:%{$fg[blue]%}%~%{$fg[green]%}> %{$reset_color%}"
+build_prompt() {
+  local user_host
+  local status_indicator=""
+  
+  if [[ "$USER@$HOST" == "ggijs@flaptop" ]] || [[ "$USER@$(hostname)" == "ggijs@flaptop" ]]; then
+    user_host="%{$fg[green]%}%n@%m"
+  else
+    user_host="%{$fg[red]%}%n@%m"
+  fi
+  
+  echo "%{$fg[green]%}<${user_host}:%{$fg[blue]%}%~%{$fg[green]%}>%{$reset_color%}"
+}
+
+setopt PROMPT_SUBST
+PROMPT='$(build_prompt)'
