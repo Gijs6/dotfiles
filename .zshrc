@@ -47,7 +47,7 @@ export LC_CTYPE=en_GB.UTF-8
 # -----------------------------
 # Startup shit
 # -----------------------------
-eval "$(keychain --eval ~/.ssh/id_ed25519 ~/.ssh/gh ~/.ssh/qd)"
+eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd)"
 eval "$(thefuck --alias)"
 eval "$(mise activate zsh)"
 
@@ -67,7 +67,7 @@ alias open="xdg-open"
 alias gimme="paru -S"
 alias yeet="paru -Rns"
 alias lookup="paru -Ss"
-alias peeek="paru -Qi"
+alias peek="paru -Qi"
 
 # Custom scripts / shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
@@ -81,7 +81,7 @@ alias venva="source .venv/bin/activate"
 alias venvre="rm -rf .venv && python -m venv .venv && source .venv/bin/activate"
 alias reqtxt="pip freeze > requirements.txt"
 
-# Elixir
+# Just commands I dont want to have to type out all the time
 alias ex="elixir"
 
 # Networking
@@ -137,7 +137,7 @@ build_prompt() {
     user_host="%{$fg[red]%}%n@%m"
   fi
   
-  echo "%{$fg[green]%}<${user_host}:%{$fg[blue]%}%~%{$fg[green]%}>%{$reset_color%}"
+  echo "%{$fg[green]%}<${user_host}:%{$fg[blue]%}%~%{$fg[green]%}>%{$reset_color%} "
 }
 
 setopt PROMPT_SUBST
