@@ -1,7 +1,7 @@
 [user]
     name = Gijs
     email = gijs@qdentity.nl
-    signingkey = 3CB8B1A829C0C973
+	signingkey = /home/ggijs/.ssh/qd.pub
 
 [credential "https://github.com"]
 	helper = 
@@ -9,3 +9,7 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
