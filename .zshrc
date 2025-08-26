@@ -47,7 +47,7 @@ export LC_CTYPE=en_GB.UTF-8
 # -----------------------------
 # Startup shit
 # -----------------------------
-eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd)"
+eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
 eval "$(thefuck --alias)"
 eval "$(mise activate zsh)"
 

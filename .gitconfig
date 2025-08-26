@@ -4,10 +4,10 @@
 [user]
     name = Gijs
     email = gijstenberg@gmail.com
-    signingkey = CF0B6289B43055CD
+	signingkey = /home/ggijs/.ssh/sign.pub
 
 [commit]
-    gpgsign = true
+	gpgsign = true
 
 [tag]
     gpgSign = true
@@ -70,6 +70,7 @@
 
 [gpg]
     program = gpg
+	format = ssh
 
 [includeIf "gitdir:/home/ggijs/projects/qd/"]
     path = ~/.gitconfig-qd
