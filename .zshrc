@@ -5,7 +5,7 @@ if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]]; then
 fi
 
 # -----------------------------
-# Basic Settings and History
+# Basic settings and history
 # -----------------------------
 HISTFILE=~/.histfile
 HISTSIZE=100
@@ -14,7 +14,7 @@ unsetopt beep
 bindkey -e
 
 # -----------------------------
-# Zsh Completion Initialization
+# Zsh completion initialization
 # -----------------------------
 zstyle ':compinstall' filename '/home/ggijs/.zshrc'
 zstyle ':completion:*' menu select
@@ -22,7 +22,13 @@ autoload -Uz compinit
 compinit
 
 # -----------------------------
-# Environment Variables
+# SSH
+# -----------------------------
+eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+export SSH_AUTH_SOCK
+
+# -----------------------------
+# Env vars
 # -----------------------------
 export PATH="$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export EDITOR="micro"
@@ -47,7 +53,6 @@ export LC_CTYPE=en_GB.UTF-8
 # -----------------------------
 # Startup shit
 # -----------------------------
-eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
 eval "$(thefuck --alias)"
 eval "$(mise activate zsh)"
 
