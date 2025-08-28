@@ -11,9 +11,10 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "prettier.tabWidth": 4,
-    "prettier.printWidth": 10000000,
+    "prettier.useTabs": false,
+    "prettier.trailingComma": "none",
     "[markdown]": {
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
     },
     "workbench.settings.applyToAllProfiles": [],
     "terminal.integrated.tabs.title": "${process}",
@@ -35,17 +36,13 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "workbench.navigationControl.enabled": false,
-    "markdownlint.config": {
-        "MD025": {
-            "front_matter_title": ""
-        }
-    },
     "[python]": {
         "diffEditor.ignoreTrimWhitespace": false,
         "editor.defaultColorDecorators": "never",
         "gitlens.codeLens.symbolScopes": ["!Module"],
         "editor.formatOnType": true,
-        "editor.wordBasedSuggestions": "off"
+        "editor.wordBasedSuggestions": "off",
+        "editor.defaultFormatter": "charliermarsh.ruff"
     },
     "markdown.styles": [
         "file:///home/ggijs/projects/school.gijs6.nl/assets/styles/basic.css",
@@ -55,5 +52,11 @@
     "diffEditor.ignoreTrimWhitespace": false,
     "svelte.enable-ts-plugin": true,
     "colorize.ruler_decoration": false,
-    "editor.minimap.showSlider": "always"
+    "editor.minimap.showSlider": "always",
+    "[django-html]": {
+        "editor.defaultFormatter": "monosans.djlint"
+    },
+    "[jinja-html]": {
+        "editor.defaultFormatter": "monosans.djlint"
+    }
 }

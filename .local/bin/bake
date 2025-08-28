@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Shitty bash-based Makefile replacement.
+
+set -eu
+
+PATH="./node_modules/.bin:$PATH"
+
+if [ -e "./Bakefile" ]; then 
+  source ./Bakefile
+else
+  err "no Bakefile found."
+fi
+
+function help {
+    echo "Usage: $(basename $0) <TARGET> [ARGS]"
+    echo
+    echo "TARGETS"
+
+    compgen -A function | grep -v '^p:' | grep -v '^help$' | cat -n
+    echo $?
+
+    echo
+    exit 0
+}
+
+case ${1:-} in
+  -h|--help|help) 
+    help
+  ;;
+  "") 
+    if help | grep "build" -q; then
+      build
+    else
+      err "no default target provided."
+    fi
+  ;;
+  *)
+    if help | grep "$1" -q; then
+      set -o pipefail
+      ${@}
+    else
+      err "no target '$1' provided."
+    fi
+  ;;
+esac

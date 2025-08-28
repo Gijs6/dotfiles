@@ -1,0 +1,3 @@
+if [ -f "$HOME/.keychain/$HOST-sh" ]; then
+    . "$HOME/.keychain/$HOST-sh"
+fi
