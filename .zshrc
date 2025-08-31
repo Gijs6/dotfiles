@@ -30,7 +30,7 @@ export SSH_AUTH_SOCK
 # -----------------------------
 # Env vars
 # -----------------------------
-export PATH="$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH:/home/ggijs/.mix/escripts"
 export EDITOR="micro"
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"

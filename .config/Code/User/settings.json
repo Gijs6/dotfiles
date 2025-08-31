@@ -58,5 +58,7 @@
     },
     "[jinja-html]": {
         "editor.defaultFormatter": "monosans.djlint"
-    }
+    },
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "djlint.showInstallError": false
 }
