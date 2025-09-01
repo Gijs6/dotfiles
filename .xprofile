@@ -1,3 +1,3 @@
-if [ -f "$HOME/.keychain/$HOST-sh" ]; then
-    . "$HOME/.keychain/$HOST-sh"
-fi
+# ~/.xprofile
+eval "$(keychain --eval --noask ~/.ssh/sign)"
+export SSH_AUTH_SOCK

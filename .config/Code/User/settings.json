@@ -60,5 +60,12 @@
         "editor.defaultFormatter": "monosans.djlint"
     },
     "terminal.integrated.enableMultiLinePasteWarning": "never",
-    "djlint.showInstallError": false
+    "djlint.showInstallError": false,
+
+    "terminal.integrated.inheritEnv": true,
+    "git.terminalAuthentication": true,
+    "git.useIntegratedTerminal": true,
+    "terminal.integrated.env.linux": {
+        "SSH_AUTH_SOCK": "${env:SSH_AUTH_SOCK}"
+    }
 }
