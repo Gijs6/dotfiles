@@ -67,6 +67,7 @@ alias grep="grep --color=auto"
 alias rm="rm -r"
 alias qu="exit"
 alias open="xdg-open"
+alias cl="clear"
 
 # Package management
 alias gimme="paru -S"
