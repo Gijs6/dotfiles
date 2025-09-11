@@ -78,6 +78,7 @@ alias peek="paru -Qi"
 alias newproj="$HOME/projects/new_proj.sh"
 alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projects/pers/commitstats/priv2.py"
 alias dcupdate="paru -Syu discord"
+alias lost="echo '$(whoami)@$(hostname):$PWD'"
 
 # Python
 alias py="python"
@@ -137,7 +138,7 @@ build_prompt() {
   local status_indicator=""
   
   if [[ "$USER@$HOST" == "ggijs@flaptop" ]] || [[ "$USER@$(hostname)" == "ggijs@flaptop" ]]; then
-    user_host="%{$fg[green]%}%n@%m"
+    user_host="%{$fg[yellow]%}%n@%m"
   else
     user_host="%{$fg[red]%}%n@%m"
   fi
