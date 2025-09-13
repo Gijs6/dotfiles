@@ -8,8 +8,14 @@ fi
 # Basic settings and history
 # -----------------------------
 HISTFILE=~/.histfile
-HISTSIZE=100
-SAVEHIST=1000
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+
 unsetopt beep
 bindkey -e
 
