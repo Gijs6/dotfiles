@@ -1,6 +1,8 @@
 # Exit if not running interactively
 [[ $- != *i* ]] && return
-if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]]; then
+
+# Skip in TTY unless FORCE_SOURCE is set
+if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" && -z "$FORCE_SOURCE" ]]; then
   return
 fi
 
