@@ -1,0 +1,230 @@
+#!/usr/bin/env bash
+# Orchastrates deployment via Docker on a Synology NAS or VPS.
+
+set -euo pipefail
+
+export TERM=xterm
+
+# Attempts to detect configuration directory on the current platform. This
+# is probabily insufficient for Windows, but I doubt this is gonna work anyway.
+CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+usage() {
+  echo "Usage: $(basename $0) [OPTS] <SUBCOMMAND> [ARGS]"
+	echo
+  echo "OPTIONS"
+  echo "  -h, --help     Show this help."
+  echo
+  echo "GENERAL COMMANDS"
+  echo "  setup          Creates a new SSH context and sets up networking for remote builds."
+  echo "  launch         Scaffholds a new project and adds it to remote bootstrap definitions."
+  echo "  use            Temporarily changes the default SSH context for the current session."
+  echo "  docker         Remotely executes docker commands on the default SSH context."
+  echo "  ps             Shows uptime summary of running container on the default SSH context."
+  echo "  dispatch       Ensures all containers are up on the default SSH context."
+  echo "  provision      Recreates the given docker container(s) on the default SSH context."
+  echo "  edit           Edits bootstrap definitions on the default SSH context."
+  echo
+  echo "The default SSH context can be configured in $(echo $CONFIG_HOME | sed "s|^$HOME/||")/lift.yml"
+  echo
+  echo "For directories containing a Liftfile, the host configured in the Liftfile will be used"
+  echo "as default SSH context instead. 'lift use' always overrides both Liftfile and lift.yml"
+  echo
+  echo "PROJECT COMMANDS"
+  echo "  launch         Interactively creates Liftfile and updates bootstrap definitions."
+  echo "  deploy         Remotely builds the image, pushes it to the registry and bumps the container."
+	echo
+	exit 0
+}
+
+# YAML helpers
+
+has_key() {
+  out=$(yq "$2" "$1")
+  [ -n "$out" ] && [ ! "$out" = "null" ]
+}
+
+try_key() {
+  if [ -f "$1" ] && has_key "$1" "$2"; then
+    yq "$2" "$1"
+  else
+    return 1
+  fi
+}
+
+# Config utilities
+
+get() {
+  yq .$1 Liftfile -e 2>/dev/null ||
+    err "$1 not found in Liftfile"
+}
+
+get_or() {
+  if has_key Liftfile .$1; then
+    yq .$1 Liftfile
+  else
+    echo "$2"
+  fi
+}
+
+global_get() {
+  h="$(host)"
+
+  try_key Liftfile .$1 \
+    || try_key $CONFIG_HOME/lift.yml .hosts.$h.$1 \
+    || try_key $CONFIG_HOME/lift.yml .$1 \
+    || err "$1 config cannot be resolved"
+}
+
+global_get_or() {
+  h="$(host)"
+
+  try_key Liftfile .$1 \
+    || try_key $CONFIG_HOME/lift.yml .hosts.$h.$1 \
+    || try_key $CONFIG_HOME/lift.yml .$1 \
+    || echo "$2"
+}
+
+# Path helpers
+
+is_absolute() {
+  case "$1" in
+    /*) return 0 ;;
+    *)  return 1 ;;
+  esac
+}
+
+path_join() {
+  local a="$1" b="$2"
+  if [ -z "$a" ]; then
+    echo "$b"
+    return
+  fi
+  a="${a%/}"
+  b="${b#/}"
+  echo "$a/$b"
+}
+
+# Public API
+
+host() {
+  if [ ! -z "${LIFT_HOST:-}" ]; then
+    echo $LIFT_HOST
+  else
+    if [ -f Liftfile ]; then
+      yq .host Liftfile -e 2>/dev/null ||
+        err "no SSH context configured in Liftfile"
+    else
+      yq .host "$CONFIG_HOME/lift.yml" -e 2>/dev/null || 
+        err "no default SSH context configured"
+    fi
+  fi
+}
+
+context() {
+  if [ ! -z "${1:-}" ]; then
+    echo "$1" | sluggify
+  else
+    host | sluggify
+  fi
+}
+
+setup() {
+  [ -z "${1:-}" ] && err "missing host"
+
+  local ctx=$(context "$1")
+
+  if quiet docker context inspect $ctx; then
+    err "ssh context '$ctx' for host '$1' already exists"
+  fi
+
+  # Expand SSH aliases to construct full SSH URL.
+  local host=$(ssh -G "$1" 2>/dev/null | awk '/^hostname / {print $2}')
+  local port=$(ssh -G "$1" 2>/dev/null | awk '/^port / {print $2}')
+  local user=$(ssh -G "$1" 2>/dev/null | awk '/^user / {print $2}')
+
+  quiet docker context create $ctx --docker "host=ssh://$user@$host:$port"
+
+  echo "Successfully created and configured '$ctx'."
+  echo
+  echo "Next, please copy the 'lift-remote' script over to the server"
+  echo "to setup rootless Docker permissions and network configuration,"
+  echo "along with initial bootstrap definitions. For example:"
+  echo
+  echo "scp $(which lift-remote) $1:lift"
+  echo "ssh $1 -t sudo mv lift /usr/local/bin/lift"
+  echo "ssh $1 -t /usr/local/bin/lift setup"
+  echo
+  echo "Thank you!"
+}
+
+deploy() {
+  if [ ! -e "./Liftfile" ]; then
+    err "no Liftfile found."
+  fi
+
+  name=$(get name)
+  host=$(get host)
+
+  case $(get_or type container) in
+    container)
+      image=$(get image)
+      registry=$(get registry)
+      tag="$registry/$image"
+
+      echo "==> Remotely building $name (as $tag)"
+      docker --context=$(context "$host") build -t "$tag" .
+      if [ "$(global_get_or push "true")" = "true" ]; then
+        echo "==> Pushing $name to $tag"
+        docker --context=$(context "$host") push "$tag"
+      fi
+      echo "lift provision $name" | ssh $host -T
+      ;;
+    static)
+      src="$(get src)"
+      dest="$(get_or target "$name")"
+      base="$(global_get_or base "")"
+
+      if ! is_absolute "$dest" && [ -n "$base" ]; then
+        dest="$(path_join "$base" "$dest")"
+      fi
+
+      skips=("Liftfile" "Bakefile" ".git" ".gitignore" ".gitattributes" ".gitmodules" ".DS_Store")
+
+      if quiet yq .exclude Liftfile -e; then
+        readarray -t extra_skips < <(yq '.exclude[]' Liftfile)
+        skips+=("${extra_skips[@]}")
+      fi
+
+      excludes=()
+
+      for e in "${skips[@]}"; do
+        excludes+=(--exclude "$e")
+      done
+
+      rsync -n -ciavuP --delete \
+        "${excludes[@]}" \
+        "$src/." "$host:$dest"
+      ;;
+    *)
+      err "unknown deployment type $(get type)'"
+      ;;
+  esac
+}
+
+# Pretty printing for 'docker ps -a'
+export fmt="table ({{.ID}})  {{.Names}}\t\t{{.Image}}\t{{.RunningFor}}\t\t{{.Status}}"
+
+case ${1:-} in
+  ""|-h|--help) usage ;;
+  setup) setup "${@:2}" ;;
+  use) err "not yet implemented" ;;
+  docker) ctx=$(context) && docker --context=$ctx "${@:2}" ;;
+  ps) ctx=$(context) && docker --context=$ctx ps -a --format "$fmt" ;;
+  dispatch) h=$(host) && echo "lift $1" | ssh $h -T ;;
+  provision) h=$(host) && echo "lift $@" | ssh $h -T ;;
+  edit) h=$(host) && ssh -t $h 'bash -l -c "lift edit"' ;;
+  launch) err "not yet implemented" ;;
+  deploy) deploy ;;
+  *) err "unknown subcommand '$1'" ;;
+esac
