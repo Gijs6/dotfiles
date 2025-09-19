@@ -1,3 +1,2 @@
-# ~/.xprofile
 eval "$(keychain --eval --noask ~/.ssh/sign)"
 export SSH_AUTH_SOCK
