@@ -1,5 +1,8 @@
 #!/bin/bash
-# For my terminal shortcut. If there is already an open alacritty window, just focus that window, otherwise, open a new window
+
+# For my terminal shortcut.
+# If there is already an open alacritty window, just focus that window, otherwise, open a new window
+
 if wmctrl -lx | grep -iq 'alacritty.Alacritty'; then
   win_id=$(wmctrl -lx | grep -i 'alacritty.Alacritty' | head -n1 | awk '{print $1}')
   wmctrl -ia "$win_id"
