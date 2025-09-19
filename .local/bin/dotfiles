@@ -1,0 +1,80 @@
+#!/bin/sh
+
+DOTFILES="$HOME/.dotfiles"
+
+usage() {
+    echo "Usage: dotfiles <command> [args]"
+    echo
+    echo "Commands:"
+    echo "  setup             Symlink all dotfiles from ~/.dotfiles into \$HOME"
+    echo "  link <file>       Add the appropriate symlink for a file in ~/.dotfiles into \$HOME"
+    echo "  add <file>        Add a file to the dotfiles repo and replace it with a symlink"
+    echo "  git <args>        Run git inside the dotfiles repo"
+    echo "  help              Show this very text"
+    exit 1
+}
+
+setup_dotfiles() {
+    EXCLUDES=".git .gitignore dotfiles"
+    cd "$DOTFILES" || exit 1
+
+    find . -mindepth 1 | while read -r file; do
+        rel_path="${file#./}"
+
+        skip=false
+        for exclude in $EXCLUDES; do
+            [ "$rel_path" = "$exclude" ] && skip=true && break
+        done
+        $skip && continue
+
+        target_path="$HOME/$rel_path"
+        mkdir -p "$(dirname "$target_path")"
+        ln -sfn "$DOTFILES/$rel_path" "$target_path"
+        echo "Linked $rel_path -> $target_path"
+    done
+}
+
+link_dotfile() {
+    [ -z "$1" ] && echo "Usage: dotfiles link <file>" && exit 1
+
+    rel_path="$1"
+    source_path="$DOTFILES/$rel_path"
+    target_path="$HOME/$rel_path"
+
+    [ ! -e "$source_path" ] && echo "Error: $source_path does not exist." && exit 1
+
+    mkdir -p "$(dirname "$target_path")"
+    ln -sfn "$source_path" "$target_path"
+    echo "Linked $rel_path -> $target_path"
+}
+
+add_dotfile() {
+    [ -z "$1" ] && echo "Usage: dotfiles add <file>" && exit 1
+
+    rel_path="$1"
+    target_path="$DOTFILES/$rel_path"
+
+    mkdir -p "$(dirname "$target_path")"
+    mv "$HOME/$rel_path" "$target_path"
+    ln -sfn "$target_path" "$HOME/$rel_path"
+
+    cd "$DOTFILES" || exit 1
+    git add "$rel_path"
+    echo "Added $rel_path to dotfiles and created symlink."
+}
+
+git_dotfiles() {
+    [ $# -eq 0 ] && echo "Usage: dotfiles git <git-commands>" && exit 1
+
+    cd "$DOTFILES" || exit 1
+    git "$@"
+}
+
+case "$1" in
+    setup) shift; setup_dotfiles ;;
+    link) shift; link_dotfile "$1" ;;
+    add) shift; add_dotfile "$1" ;;
+    git) shift; git_dotfiles "$@" ;;
+    help) usage ;;
+    *) usage ;;
+esac
