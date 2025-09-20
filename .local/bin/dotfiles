@@ -15,7 +15,7 @@ usage() {
 }
 
 setup_dotfiles() {
-    EXCLUDES=".git .gitignore dotfiles"
+    EXCLUDES=".git .gitignore dotfiles README.md"
     cd "$DOTFILES" || exit 1
 
     find . -mindepth 1 | while read -r file; do
