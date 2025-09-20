@@ -73,5 +73,5 @@
 	format = ssh
 
 [includeIf "gitdir:/home/ggijs/projects/qd/"]
-    path = ~/.gitconfig-qd
+    path = ~/.config/git/qd-config
 
