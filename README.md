@@ -1,7 +1,7 @@
 # Dotfiles
 
 My personal Linux dotfiles, made for Arch/Cinnamon.  
-Mainly for my git, zsh and application configs. I am really happy with my [`.zshrc`](.zshrc) and my [`.gitconfig`](.gitconfig). This repo also includes [handy scripts](.local/bin) to add to your `$PATH`.
+Mainly for my git, zsh and application configs. I am really happy with my [`.zshrc`](.zshrc) and my [`.gitconfig`](.config/git/config). This repo also includes [handy scripts](.local/bin) to add to your `$PATH`.
 
 ## Installation
 
