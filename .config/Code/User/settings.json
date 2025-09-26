@@ -14,7 +14,7 @@
     "prettier.useTabs": false,
     "prettier.trailingComma": "none",
     "[markdown]": {
-        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
     "workbench.settings.applyToAllProfiles": [],
     "terminal.integrated.tabs.title": "${process}",
