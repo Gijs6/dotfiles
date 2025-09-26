@@ -145,6 +145,35 @@ ccat() {
   cat "$1" | tee >(xclip -selection clipboard)
 }
 
+# Extract archives
+extract() {
+  local archive="$1"
+  local outdir="${2:-.}"
+
+  if [[ -z "$archive" ]]; then
+    echo "Usage: extract <archive> [output_dir]"
+    return 1
+  fi
+
+  mkdir -p "$outdir" || return 1
+
+  case "$archive" in
+    *.tar.bz2) tar xjf "$archive" -C "$outdir" ;;
+    *.tar.gz)  tar xzf "$archive" -C "$outdir" ;;
+    *.bz2)     bunzip2 -c "$archive" > "$outdir/$(basename "${archive%.bz2}")" ;;
+    *.rar)     unrar x "$archive" "$outdir/" ;;
+    *.gz)      gunzip -c "$archive" > "$outdir/$(basename "${archive%.gz}")" ;;
+    *.tar)     tar xf "$archive" -C "$outdir" ;;
+    *.tbz2)    tar xjf "$archive" -C "$outdir" ;;
+    *.tgz)     tar xzf "$archive" -C "$outdir" ;;
+    *.zip)     unzip -d "$outdir" "$archive" ;;
+    *.Z)       uncompress -c "$archive" > "$outdir/$(basename "${archive%.Z}")" ;;
+    *.7z)      7z x "$archive" -o"$outdir" ;;
+    *) echo "Don't know how to extract '$archive'..." ;;
+  esac
+}
+
+
 # -----------------------------
 # Prompt
 # -----------------------------
