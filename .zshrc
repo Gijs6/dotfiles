@@ -17,6 +17,8 @@ setopt SHARE_HISTORY
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
+setopt autocd
+setopt auto_pushd pushd_ignore_dups
 
 unsetopt beep
 bindkey -e
@@ -26,6 +28,11 @@ bindkey -e
 # -----------------------------
 zstyle ':compinstall' filename '/home/ggijs/.zshrc'
 zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
 autoload -Uz compinit
 compinit
 
@@ -65,6 +72,11 @@ eval "$(thefuck --alias)"
 eval "$(mise activate zsh)"
 
 fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
+
+# Plugins
+if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # -----------------------------
 # Aliases
