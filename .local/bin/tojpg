@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: img2jpg <image_file>"
+    exit 1
+fi
+
+input="$1"
+output="${input%.*}.jpg"
+
+if [ -f "$output" ]; then
+    echo "Error: $output already exists."
+    exit 1
+fi
+
+magick convert "$input" "$output" && echo "Converted $input -> $output"
