@@ -108,7 +108,7 @@ alias venva="source .venv/bin/activate"
 alias venvre="rm -rf .venv && python -m venv .venv && source .venv/bin/activate"
 alias reqtxt="pip freeze > requirements.txt"
 
-# Just commands I dont want to have to type out all the time
+# Elixir
 alias ex="elixir"
 
 # Networking

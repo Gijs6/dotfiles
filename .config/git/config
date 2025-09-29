@@ -37,6 +37,7 @@
     # Fancy logs
     h = log --graph --date=default-local --pretty=format:'%C(yellow)%h%C(reset) %C(green)%cd%C(reset) %C(blue)%an%C(reset)%C(red)%d%C(reset) %s'
     ha = h --all
+	amendf = !git add -A && git commit --amend --no-edit && git push --force
 
 [pull]
     rebase = true
