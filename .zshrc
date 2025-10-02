@@ -88,6 +88,7 @@ alias rm="rm -r"
 alias qu="exit"
 alias open="xdg-open"
 alias cl="clear"
+alias clip="xclip -selection clipboard"
 
 # Package management
 alias gimme="paru -S"
@@ -98,6 +99,7 @@ alias peek="paru -Qi"
 # Custom scripts / shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
 alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projects/pers/commitstats/priv2.py"
+alias atlas_backup="$HOME/scripts/atlas-backup.sh"
 alias dcupdate="paru -Syu discord"
 alias lost="echo '$(whoami)@$(hostname):$PWD'"
 
