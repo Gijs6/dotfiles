@@ -5,6 +5,10 @@ set -euo pipefail
 
 export TERM=xterm
 
+required yq
+required sluggify
+required quiet
+
 # Attempts to detect configuration directory on the current platform. This
 # is probabily insufficient for Windows, but I doubt this is gonna work anyway.
 CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -189,7 +193,7 @@ deploy() {
         dest="$(path_join "$base" "$dest")"
       fi
 
-      skips=("Liftfile" "Bakefile" ".git" ".gitignore" ".gitattributes" ".gitmodules" ".DS_Store")
+      skips=("Liftfile" "Bakefile" ".git" ".gitignore" ".gitattributes" ".gitmodules" ".vscode" ".claude" ".DS_Store")
 
       if quiet yq .exclude Liftfile -e; then
         readarray -t extra_skips < <(yq '.exclude[]' Liftfile)
@@ -202,7 +206,7 @@ deploy() {
         excludes+=(--exclude "$e")
       done
 
-      rsync -n -ciavuP --delete \
+      rsync -ciavuP --delete \
         "${excludes[@]}" \
         "$src/." "$host:$dest"
       ;;
