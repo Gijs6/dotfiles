@@ -48,6 +48,8 @@ zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+autoload -Uz colors && colors
+
 autoload -Uz compinit
 compinit
 
@@ -88,8 +90,35 @@ export LC_CTYPE=en_GB.UTF-8
 if [[ "$OS_NAME" == "arch" ]]; then
   eval "$(thefuck --alias)"
   eval "$(mise activate zsh)"
+fi
 
+if [[ "$OS_NAME" == "arch" ]]; then
   fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
+elif [[ "$OS_NAME" == "ubuntu" ]]; then
+  # Colors
+  RED="%F{red}"
+  GREEN="%F{green}"
+  YELLOW="%F{yellow}"
+  BLUE="%F{blue}"
+  CYAN="%F{cyan}"
+  MAGENTA="%F{magenta}"
+  WHITE="%F{white}"
+  RESET="%f"
+
+  # Dynamic variables
+  HOSTNAME=$(hostname)
+  UPTIME=$(uptime -p)
+
+  # Banner
+  print -P ""
+  print -P "${BLUE}+-------------------------------+${RESET}"
+  print -P "${BLUE}|${RESET} ${RED}(^_^)${RESET} ${CYAN}(o_o)${RESET} ${YELLOW}(@_@)${RESET} ${MAGENTA}(\"_\")${RESET} ${GREEN}(*_*)${RESET}"
+  print -P "${BLUE}|${RESET}"
+  print -P "${BLUE}|${RESET} ${WHITE}welcome to ${MAGENTA}${HOSTNAME}${RESET}${WHITE}!${RESET}"
+  print -P "${BLUE}|${RESET}"
+  print -P "${BLUE}|${RESET} ${YELLOW}uptime: ${CYAN}${UPTIME}${RESET}"
+  print -P "${BLUE}+-------------------------------+${RESET}"
+  print -P ""
 fi
 
 # -----------------------------
@@ -212,8 +241,6 @@ extract() {
 # -----------------------------
 # Prompt
 # -----------------------------
-autoload -Uz colors && colors
-
 prompt_path() {
   [[ $PWD == $HOME* ]] && echo "~${PWD#$HOME}" || echo "$PWD"
 }
