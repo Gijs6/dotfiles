@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import random
 
 RED = "\033[31m"
 GREEN = "\033[32m"
@@ -13,13 +14,22 @@ WHITE = "\033[37m"
 RESET = "\033[0m"
 
 HOSTNAME = os.uname().nodename
-UPTIME = subprocess.getoutput("uptime -p")
-
-faces = f'{RED}(^_^) {CYAN}(o_o) {YELLOW}(@_@) {MAGENTA}("_") {GREEN}(*_*){RESET}'
-welcome = f"{WHITE}welcome to {MAGENTA}{HOSTNAME}{RESET}{WHITE}!{RESET}"
+UPTIME = subprocess.getoutput("uptime -p")[3:]
 uptime_line = f"{YELLOW}uptime: {CYAN}{UPTIME}{RESET}"
 
+faces_chars = ["(^_^)", "(o_o)", "(@_@)", '("_")', "(*_*)"]
+colors = [RED, CYAN, YELLOW, MAGENTA, GREEN]
+
+random.shuffle(faces_chars)
+random.shuffle(colors)
+
+faces_list = [f"{color}{face}{RESET}" for color, face in zip(colors, faces_chars)]
+faces = " ".join(faces_list)
+
+welcome = f"{WHITE}welcome to {MAGENTA}{HOSTNAME}{RESET}{WHITE}!{RESET}"
+
 lines = [faces, welcome, uptime_line]
+
 max_content_width = max(
     len(
         line.replace(RED, "")
@@ -54,7 +64,6 @@ def center_line(text, width):
     )
 
 
-# Print banner
 print()
 print(f"{BLUE}+{'-' * (box_width - 2)}+{RESET}")
 print(center_line(faces, box_width))
