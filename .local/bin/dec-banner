@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+CYAN = "\033[36m"
+MAGENTA = "\033[35m"
+WHITE = "\033[37m"
+RESET = "\033[0m"
+
+HOSTNAME = os.uname().nodename
+UPTIME = subprocess.getoutput("uptime -p")
+
+faces = f'{RED}(^_^) {CYAN}(o_o) {YELLOW}(@_@) {MAGENTA}("_") {GREEN}(*_*){RESET}'
+welcome = f"{WHITE}welcome to {MAGENTA}{HOSTNAME}{RESET}{WHITE}!{RESET}"
+uptime_line = f"{YELLOW}uptime: {CYAN}{UPTIME}{RESET}"
+
+lines = [faces, welcome, uptime_line]
+max_content_width = max(
+    len(
+        line.replace(RED, "")
+        .replace(GREEN, "")
+        .replace(YELLOW, "")
+        .replace(BLUE, "")
+        .replace(CYAN, "")
+        .replace(MAGENTA, "")
+        .replace(WHITE, "")
+        .replace(RESET, "")
+    )
+    for line in lines
+)
+box_width = max_content_width + 4
+
+
+def center_line(text, width):
+    content_length = len(
+        text.replace(RED, "")
+        .replace(GREEN, "")
+        .replace(YELLOW, "")
+        .replace(BLUE, "")
+        .replace(CYAN, "")
+        .replace(MAGENTA, "")
+        .replace(WHITE, "")
+        .replace(RESET, "")
+    )
+    padding_left = (width - 2 - content_length) // 2
+    padding_right = width - 2 - content_length - padding_left
+    return (
+        f"{BLUE}|{RESET}{' ' * padding_left}{text}{' ' * padding_right}{BLUE}|{RESET}"
+    )
+
+
+# Print banner
+print()
+print(f"{BLUE}+{'-' * (box_width - 2)}+{RESET}")
+print(center_line(faces, box_width))
+print(center_line("", box_width))
+print(center_line(welcome, box_width))
+print(center_line("", box_width))
+print(center_line(uptime_line, box_width))
+print(f"{BLUE}+{'-' * (box_width - 2)}+{RESET}")
+print()
