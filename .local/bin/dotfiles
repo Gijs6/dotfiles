@@ -16,18 +16,36 @@ usage() {
 
 setup_dotfiles() {
     EXCLUDES=".git .gitignore dotfiles README.md"
+    HOST_EXCLUDES=".local/bin/lift"  # files not to link on secondary (non-main) hosts
+
     cd "$DOTFILES" || exit 1
 
-    find . -mindepth 1 | while read -r file; do
+    find . -type f | while read -r file; do
         rel_path="${file#./}"
-
         skip=false
+
+        # global excludes
         for exclude in $EXCLUDES; do
-            [ "$rel_path" = "$exclude" ] && skip=true && break
+            case "$rel_path" in
+                $exclude* ) skip=true; break ;;
+            esac
         done
         $skip && continue
 
+        # host-specific excludes
+        case "$(hostname)" in
+            december)
+                for exclude in $HOST_EXCLUDES; do
+                    case "$rel_path" in
+                        $exclude* ) skip=true; break ;;
+                    esac
+                done
+                ;;
+        esac
+        $skip && continue
+
         target_path="$HOME/$rel_path"
+
         mkdir -p "$(dirname "$target_path")"
         ln -sfn "$DOTFILES/$rel_path" "$target_path"
         echo "Linked $rel_path -> $target_path"
@@ -41,7 +59,8 @@ link_dotfile() {
     source_path="$DOTFILES/$rel_path"
     target_path="$HOME/$rel_path"
 
-    [ ! -e "$source_path" ] && echo "Error: $source_path does not exist." && exit 1
+    [ ! -f "$source_path" ] && echo "Error: $source_path does not exist or is not a regular file." && exit 1
+    [ "$source_path" -ef "$target_path" ] && echo "Already linked: $rel_path" && return
 
     mkdir -p "$(dirname "$target_path")"
     ln -sfn "$source_path" "$target_path"
