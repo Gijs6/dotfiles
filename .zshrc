@@ -131,6 +131,10 @@ alias atlas_backup="$HOME/scripts/atlas-backup.sh"
 alias dcupdate="$gimme discord"
 alias lost="echo '$(whoami)@$(hostname):$PWD'"
 
+if [[ "$OS_NAME" == "ubuntu" ]]; then
+  alias rerouter="docker exec router caddy reload --config /etc/caddy/Caddyfile"
+fi
+
 # Python
 alias py="python"
 alias venvm="python -m venv .venv && source .venv/bin/activate"
