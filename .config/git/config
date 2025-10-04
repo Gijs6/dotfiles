@@ -7,7 +7,7 @@
 	signingkey = /home/ggijs/.ssh/sign.pub
 
 [commit]
-	gpgsign = true
+	gpgSign = true
 
 [tag]
     gpgSign = true
@@ -76,3 +76,5 @@
 [includeIf "gitdir:/home/ggijs/projects/qd/"]
     path = ~/.config/git/qd-config
 
+[gpg "ssh"]
+	allowedSignersFile = /home/ggijs/.ssh/allowed_signers
