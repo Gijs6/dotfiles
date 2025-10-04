@@ -3,15 +3,27 @@ import argparse
 import secrets
 import string
 
+
 def generate_password(length: int, charset: str) -> str:
-    return ''.join(secrets.choice(charset) for _ in range(length))
+    return "".join(secrets.choice(charset) for _ in range(length))
+
 
 def main():
     parser = argparse.ArgumentParser(description="Generate a random password")
-    parser.add_argument("-l", "--length", type=int, default=16,
-                        help="Length of the password (default: 16)")
-    parser.add_argument("-c", "--charset", choices=["alnum", "ascii", "hex"], default="ascii",
-                        help="Charset: alnum (A-Za-z0-9), ascii (letters+digits+symbols), hex (0-9a-f)")
+    parser.add_argument(
+        "-l",
+        "--length",
+        type=int,
+        default=16,
+        help="Length of the password (default: 16)",
+    )
+    parser.add_argument(
+        "-c",
+        "--charset",
+        choices=["alnum", "ascii", "hex"],
+        default="ascii",
+        help="Charset: alnum (A-Za-z0-9), ascii (letters+digits+symbols), hex (0-9a-f)",
+    )
     args = parser.parse_args()
 
     if args.charset == "alnum":
@@ -22,6 +34,7 @@ def main():
         charset = string.ascii_letters + string.digits + string.punctuation
 
     print(generate_password(args.length, charset))
+
 
 if __name__ == "__main__":
     main()
