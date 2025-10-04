@@ -1,10 +1,25 @@
-# Exit if not running interactively
-[[ $- != *i* ]] && return
+# -----------------------------
+# Detect OS
+# -----------------------------
+if [[ -f /etc/os-release ]]; then
+  source /etc/os-release
+  OS_NAME=$ID
+else
+  OS_NAME="unknown"
+fi
 
-# Skip in TTY unless FORCE_SOURCE is set
-if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" && -z "$FORCE_SOURCE" ]]; then
+# -----------------------------
+# Exit if not running interactively, except on host 'december'
+# -----------------------------
+if [[ $- != *i* ]]; then
   return
 fi
+
+# Skip GUI-only stuff unless on host 'december' or FORCE_SOURCE is set
+if [[ "$HOST" != "december" && -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" && -z "$FORCE_SOURCE" ]]; then
+  return
+fi
+
 
 # -----------------------------
 # Basic settings and history
@@ -26,7 +41,7 @@ bindkey -e
 # -----------------------------
 # Zsh completion initialization
 # -----------------------------
-zstyle ':compinstall' filename '/home/ggijs/.zshrc'
+zstyle ':compinstall' filename "$HOME/.zshrc"
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*'
 zstyle ':completion:*' use-cache yes
@@ -39,13 +54,15 @@ compinit
 # -----------------------------
 # SSH
 # -----------------------------
-eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
-export SSH_AUTH_SOCK
+if [[ "$OS_NAME" == "arch" ]]; then
+  eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+  export SSH_AUTH_SOCK
+fi
 
 # -----------------------------
 # Env vars
 # -----------------------------
-export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:/home/ggijs/.mix/escripts"
+export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:$HOME/.mix/escripts"
 export EDITOR="micro"
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
@@ -68,12 +85,16 @@ export LC_CTYPE=en_GB.UTF-8
 # -----------------------------
 # Startup shit
 # -----------------------------
-eval "$(thefuck --alias)"
-eval "$(mise activate zsh)"
+if [[ "$OS_NAME" == "arch" ]]; then
+  eval "$(thefuck --alias)"
+  eval "$(mise activate zsh)"
 
-fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
+  fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
+fi
 
+# -----------------------------
 # Plugins
+# -----------------------------
 if [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
@@ -91,16 +112,23 @@ alias cl="clear"
 alias clip="xclip -selection clipboard"
 
 # Package management
-alias gimme="paru -S"
-alias yeet="paru -Rns"
-alias lookup="paru -Ss"
-alias peek="paru -Qi"
+if [[ "$OS_NAME" == "arch" ]]; then
+  alias gimme="paru -S"
+  alias yeet="paru -Rns"
+  alias lookup="paru -Ss"
+  alias peek="paru -Qi"
+elif [[ "$OS_NAME" == "ubuntu" ]]; then
+  alias gimme="sudo apt install"
+  alias yeet="sudo apt remove"
+  alias lookup="apt search"
+  alias peek="apt show"
+fi
 
 # Custom scripts / shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
 alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projects/pers/commitstats/priv2.py"
 alias atlas_backup="$HOME/scripts/atlas-backup.sh"
-alias dcupdate="paru -Syu discord"
+alias dcupdate="$gimme discord"
 alias lost="echo '$(whoami)@$(hostname):$PWD'"
 
 # Python
@@ -119,20 +147,21 @@ alias locip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0
 alias serve="python -m http.server 8000"
 
 # Navigation
-alias tree="exa --tree"
+if [[ "$OS_NAME" == "arch" ]]; then
+  alias tree="exa --tree"
+fi
 
 # zshrc shortcuts
 alias szrc="source ~/.zshrc"
 alias ezrc="e ~/.zshrc"
 
-# Fun
-alias moo="fortune | cowsay | lolcat"
-
-# GPU management
-alias intel="optimus-manager --switch intel --no-confirm"
-alias nvidia="optimus-manager --switch nvidia --no-confirm"
-alias hybrid="optimus-manager --switch hybrid --no-confirm"
-alias gpu="optimus-manager --status"
+if [[ "$OS_NAME" == "arch" ]]; then
+  # GPU management
+  alias intel="optimus-manager --switch intel --no-confirm"
+  alias nvidia="optimus-manager --switch nvidia --no-confirm"
+  alias hybrid="optimus-manager --switch hybrid --no-confirm"
+  alias gpu="optimus-manager --status"
+fi
 
 # -----------------------------
 # Functions

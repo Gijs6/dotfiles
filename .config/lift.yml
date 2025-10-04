@@ -1,2 +1,8 @@
-host: nov
-base: /volume1/www/
+host: dec
+base: /home/ggijs/www/html
+
+nov:
+    base: /volume1/www/
+
+aliases:
+  reload: docker exec router caddy reload -c /etc/caddy/Caddyfile
