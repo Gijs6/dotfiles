@@ -67,5 +67,20 @@
     "git.useIntegratedTerminal": true,
     "terminal.integrated.env.linux": {
         "SSH_AUTH_SOCK": "${env:SSH_AUTH_SOCK}"
-    }
+    },
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "editor.columnSelection": true
 }

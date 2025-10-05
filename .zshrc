@@ -115,6 +115,7 @@ alias rm="rm -r"
 alias qu="exit"
 alias open="xdg-open"
 alias cl="clear"
+alias xi="exit"
 alias clip="xclip -selection clipboard"
 
 # Package management
