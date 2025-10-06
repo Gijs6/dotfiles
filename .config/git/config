@@ -78,3 +78,6 @@
 
 [gpg "ssh"]
 	allowedSignersFile = /home/ggijs/.ssh/allowed_signers
+
+[submodule]
+	recurse = true
