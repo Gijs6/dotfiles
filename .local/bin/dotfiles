@@ -71,15 +71,20 @@ add_dotfile() {
     [ -z "$1" ] && echo "Usage: dotfiles add <file>" && exit 1
 
     rel_path="$1"
-    target_path="$DOTFILES/$rel_path"
+    abs_source_path="$(realpath -m "$rel_path")" || exit 1
+    rel_home_path="${abs_source_path#$HOME/}"
+
+    target_path="$DOTFILES/$rel_home_path"
+
+    [ ! -e "$abs_source_path" ] && echo "Error: $abs_source_path does not exist." && exit 1
 
     mkdir -p "$(dirname "$target_path")"
-    mv "$HOME/$rel_path" "$target_path"
-    ln -sfn "$target_path" "$HOME/$rel_path"
+    mv "$abs_source_path" "$target_path"
+    ln -sfn "$target_path" "$abs_source_path"
 
     cd "$DOTFILES" || exit 1
-    git add "$rel_path"
-    echo "Added $rel_path to dotfiles and created symlink."
+    git add "$rel_home_path"
+    echo "Added $rel_home_path to dotfiles and created symlink."
 }
 
 git_dotfiles() {
