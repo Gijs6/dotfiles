@@ -137,6 +137,7 @@ alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projec
 alias atlas_backup="$HOME/scripts/atlas-backup.sh"
 alias dcupdate="$gimme discord"
 alias lost="echo '$(whoami)@$(hostname):$PWD'"
+alias repo="gh repo view --web"
 
 if [[ "$OS_NAME" == "ubuntu" ]]; then
   alias rerouter="docker exec router caddy reload --config /etc/caddy/Caddyfile"
