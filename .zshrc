@@ -1,4 +1,5 @@
 # -----------------------------
+# -----------------------------
 # Detect OS
 # -----------------------------
 if [[ -f /etc/os-release ]]; then
@@ -110,6 +111,7 @@ fi
 # -----------------------------
 # Core tools
 alias ls="ls --color=auto"
+alias lsa="ls -lAh"
 alias grep="grep --color=auto"
 alias rm="rm -r"
 alias qu="exit"
@@ -228,13 +230,13 @@ build_prompt() {
   local user_host
   local status_indicator=""
   
-  if [[ "$USER@$HOST" == "ggijs@flaptop" ]] || [[ "$USER@$(hostname)" == "ggijs@flaptop" ]]; then
+  if [[ "$USER@$HOST" == "ggijs@lithium" ]] || [[ "$USER@$(hostname)" == "ggijs@lithium" ]]; then
     user_host="%{$fg[yellow]%}%n@%m"
   else
     user_host="%{$fg[red]%}%n@%m"
   fi
   
-  echo "%{$fg[green]%}<${user_host}:%{$fg[blue]%}%~%{$fg[green]%}>%{$reset_color%} "
+  echo "%{$fg[green]%}<${user_host}%{$fg[green]%}:%{$fg[blue]%}%~%{$fg[green]%}>%{$reset_color%} "
 }
 
 setopt PROMPT_SUBST
