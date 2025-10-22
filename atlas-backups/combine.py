@@ -50,19 +50,19 @@ print(f"\nExtracting {len(rows)} pages...\n")
 
 with open(output_file, "w", encoding="utf-8") as out_md:
     out_md.write(f"# Combined pages (from backup {selected_backup})\n\n")
-    out_md.write("---\n\n")
+    out_md.write("---\n")
 
     for idx, (title, path) in enumerate(rows, 1):
         full_path = os.path.join(selected_backup, path)
 
         print(f"[{idx}/{len(rows)}] {title} ({path})")
 
-        out_md.write(f"## {title}\n\n")
+        out_md.write(f"\n## {title}\n\n")
         try:
             if os.path.exists(full_path):
                 with open(full_path, "r", encoding="utf-8") as md_file:
                     content = md_file.read()
-                    out_md.write(content + "\n\n")
+                    out_md.write(content + "\n")
             else:
                 out_md.write(f"*Warning: File '{full_path}' not found.*\n\n")
                 print(f"WARNING: File not found!")
