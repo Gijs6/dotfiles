@@ -1,6 +1,6 @@
 {
     "workbench.colorTheme": "GitHub Dark Default",
-    "editor.fontFamily": "\"JetBrains Mono\", \"Source Code Pro\", \"Ubuntu Mono\", monospace",
+    "editor.fontFamily": "\"JetBrains Mono\"",
     "explorer.confirmDelete": false,
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
