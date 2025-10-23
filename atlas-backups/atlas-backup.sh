@@ -2,7 +2,8 @@
 
 export PATH=/usr/local/bin:/usr/bin:/bin
 
-export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name "agent.*" -user $(whoami) 2>/dev/null | head -1)
+# Source keychain environment to access SSH agent with flower key
+[ -f "$HOME/.keychain/$(hostname)-sh" ] && . "$HOME/.keychain/$(hostname)-sh"
 
 today=$(date +"%Y-%m-%d")
 backup_dir="$HOME/atlas-backups"
