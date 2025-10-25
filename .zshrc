@@ -136,7 +136,7 @@ fi
 # Custom scripts / shortcuts
 alias newproj="$HOME/projects/new_proj.sh"
 alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projects/pers/commitstats/priv2.py"
-alias atlas_backup="$HOME/scripts/atlas-backup.sh"
+alias atlas_backup="$HOME/atlas-backups/atlas-backup.sh"
 alias dcupdate="$gimme discord"
 alias lost="echo '$(whoami)@$(hostname):$PWD'"
 alias repo="gh repo view --web"
