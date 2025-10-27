@@ -29,10 +29,10 @@ else:
         if 0 <= backup_index < len(backups):
             selected_backup = backups[backup_index]
         else:
-            print(f"Invalid selection. Using most recent backup.")
+            print("Invalid selection. Using most recent backup.")
             selected_backup = default_backup
     except ValueError:
-        print(f"Invalid input. Using most recent backup.")
+        print("Invalid input. Using most recent backup.")
         selected_backup = default_backup
 
 db_path = os.path.join(selected_backup, "data.db")
@@ -65,12 +65,12 @@ with open(output_file, "w", encoding="utf-8") as out_md:
                     out_md.write(content + "\n")
             else:
                 out_md.write(f"*Warning: File '{full_path}' not found.*\n\n")
-                print(f"WARNING: File not found!")
+                print("WARNING: File not found!")
         except Exception as e:
             out_md.write(f"*Error reading '{full_path}': {e}*\n\n")
             print(f"ERROR: {e}")
 
 conn.close()
-print(f"\n" + "=" * 60)
+print("\n" + "=" * 60)
 print(f"Combined markdown written to: {output_file}")
 print("=" * 60)
