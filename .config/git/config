@@ -29,6 +29,7 @@
     unstage = restore --staged
     amend = commit --amend
     fuckit = reset --hard
+	shit = !git add -A && git commit --amend --no-edit && git push --force
 
     # Remove branches deleted on remote
     pr = !git fetch --all --prune && git branch -vv | grep '\\(origin\\|fork\\|src\\)/.*: gone]' | awk '{print $1}' | xargs git branch -D
@@ -37,7 +38,6 @@
     # Fancy logs
     h = log --graph --date=default-local --pretty=format:'%C(yellow)%h%C(reset) %C(green)%cd%C(reset) %C(blue)%an%C(reset)%C(red)%d%C(reset) %s'
     ha = h --all
-	amendf = !git add -A && git commit --amend --no-edit && git push --force
 
 [pull]
     rebase = true
