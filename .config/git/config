@@ -82,3 +82,9 @@
 
 [submodule]
 	recurse = true
+
+[color]
+	ui = auto
+
+[log]
+	date = relative
