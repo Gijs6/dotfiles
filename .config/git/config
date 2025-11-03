@@ -30,6 +30,7 @@
     amend = commit --amend
     fuckit = reset --hard
 	shit = !git add -A && git commit --amend --no-edit && git push --force
+	rename = !git commit --amend && git push --force
 
     # Remove branches deleted on remote
     pr = !git fetch --all --prune && git branch -vv | grep '\\(origin\\|fork\\|src\\)/.*: gone]' | awk '{print $1}' | xargs git branch -D
