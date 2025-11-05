@@ -55,8 +55,20 @@ setup_dotfiles() {
 link_dotfile() {
     [ -z "$1" ] && echo "Usage: dotfiles link <file>" && exit 1
 
-    rel_path="$1"
-    source_path="$DOTFILES/$rel_path"
+    # Resolve to absolute canonical path
+    source_path="$(realpath -m "$1")" || exit 1
+
+    # Check if it's within the dotfiles folder
+    case "$source_path" in
+        "$DOTFILES"/*)
+            rel_path="${source_path#$DOTFILES/}"
+            ;;
+        *)
+            echo "Error: $source_path is not in the dotfiles folder ($DOTFILES)"
+            exit 1
+            ;;
+    esac
+
     target_path="$HOME/$rel_path"
 
     [ ! -f "$source_path" ] && echo "Error: $source_path does not exist or is not a regular file." && exit 1
@@ -70,9 +82,19 @@ link_dotfile() {
 add_dotfile() {
     [ -z "$1" ] && echo "Usage: dotfiles add <file>" && exit 1
 
-    rel_path="$1"
-    abs_source_path="$(realpath -m "$rel_path")" || exit 1
-    rel_home_path="${abs_source_path#$HOME/}"
+    # Resolve to absolute canonical path
+    abs_source_path="$(realpath -m "$1")" || exit 1
+
+    # Check if it's within the home directory
+    case "$abs_source_path" in
+        "$HOME"/*)
+            rel_home_path="${abs_source_path#$HOME/}"
+            ;;
+        *)
+            echo "Error: $abs_source_path is not in your home directory ($HOME)"
+            exit 1
+            ;;
+    esac
 
     target_path="$DOTFILES/$rel_home_path"
 
