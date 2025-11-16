@@ -3,7 +3,7 @@ Description=Linio
 After=network.target
 
 [Service]
-ExecStart=%h/.local/bin/linio --homepage="/ToDo" --git %h/scribbles
+ExecStart=%h/.local/bin/linio --home="/ToDo" --git %h/scribbles
 Restart=always
 WorkingDirectory=%h/scribbles
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
