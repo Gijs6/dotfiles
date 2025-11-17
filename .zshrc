@@ -158,7 +158,7 @@ alias ex="elixir"
 # Networking
 alias pubip="curl -s4 ifconfig.me -w '\n'"
 alias locip="ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
-alias serve="python -m http.server 8000"
+alias server="serve"
 
 # Navigation
 if [[ "$OS_NAME" == "arch" ]]; then

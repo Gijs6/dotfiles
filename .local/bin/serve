@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+import argparse
+import os
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from urllib.parse import unquote
+
+class Handler(SimpleHTTPRequestHandler):
+    def translate_path(self, path):
+        path = unquote(path)
+
+        if path.endswith(".html"):
+            new = path[:-5]
+            self.send_response(301)
+            self.send_header("Location", new)
+            self.end_headers()
+            raise SystemExit
+
+        rel = path.lstrip("/")
+        base = os.getcwd()
+
+        p1 = os.path.join(base, rel)
+        if os.path.isfile(p1):
+            return p1
+
+        p2 = os.path.join(base, rel, "index.html")
+        if os.path.isfile(p2):
+            return p2
+
+        p3 = os.path.join(base, rel + ".html")
+        if os.path.isfile(p3):
+            return p3
+
+        return p1
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=8080)
+    parser.add_argument("--dir", default=".")
+    args = parser.parse_args()
+
+    os.chdir(args.dir)
+    httpd = HTTPServer(("0.0.0.0", args.port), Handler)
+    httpd.serve_forever()
+
+if __name__ == "__main__":
+    main()
