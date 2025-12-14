@@ -65,11 +65,12 @@ fi
 # -----------------------------
 # Env vars
 # -----------------------------
-export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:$HOME/.mix/escripts"
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/gem/ruby/3.4.0/bin:$HOME/.mix/escripts:$PATH"
 export EDITOR="micro"
 export GPG_TTY=$(tty)
 export DEPLOY="rsync -ciavuP --delete --exclude .git --exclude Bakefile"
 export TERM="xterm"
+export SUDO_ASKPASS="$HOME/.local/bin/sudo-askpass"
 
 export MASTER_DB_PARAMS="host=34.76.242.173 \
   sslrootcert=$HOME/.qsecrets/master-db/server-ca.pem \
@@ -122,10 +123,10 @@ alias die="killall"
 
 # Package management
 if [[ "$OS_NAME" == "arch" ]]; then
-  alias gimme="paru -S"
-  alias yeet="paru -Rns"
-  alias lookup="paru -Ss"
-  alias peek="paru -Qi"
+  alias gimme="yay -S"
+  alias yeet="yay -Rns"
+  alias lookup="yay -Ss"
+  alias peek="yay -Qi"
 elif [[ "$OS_NAME" == "ubuntu" ]]; then
   alias gimme="sudo apt install"
   alias yeet="sudo apt remove"
@@ -140,6 +141,8 @@ alias atlas_backup="$HOME/atlas-backups/atlas-backup.sh"
 alias dcupdate="$gimme discord"
 alias lost="echo '$(whoami)@$(hostname):$PWD'"
 alias repo="gh repo view --web"
+alias qd-vpn="sudo tailscale switch qd && sudo tailscale up --exit-node=qdentity-mac-mini --operator=$USER"
+alias qd-vpn-off="sudo tailscale switch du && sudo tailscale up --operator=$USER"
 
 if [[ "$OS_NAME" == "ubuntu" ]]; then
   alias rerouter="docker exec router caddy reload --config /etc/caddy/Caddyfile"

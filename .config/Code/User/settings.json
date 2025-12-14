@@ -3,7 +3,7 @@
     "editor.fontFamily": "\"JetBrains Mono\"",
     "explorer.confirmDelete": false,
     "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.html-language-features"
     },
     "git.enableSmartCommit": true,
     "git.autofetch": true,
@@ -85,5 +85,7 @@
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
+    "claudeCode.preferredLocation": "panel",
+    "terminal.integrated.suggest.enabled": false
 }

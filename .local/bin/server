@@ -6,6 +6,8 @@ from urllib.parse import unquote
 
 class Handler(SimpleHTTPRequestHandler):
     def translate_path(self, path):
+        # Strip query parameters before processing
+        path = path.split('?', 1)[0]
         path = unquote(path)
 
         if path.endswith(".html"):
