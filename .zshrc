@@ -95,9 +95,10 @@ if [[ "$OS_NAME" == "arch" ]]; then
   eval "$(mise activate zsh)"
 fi
 
-if [[ "$OS_NAME" == "arch" ]]; then
-  fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
-elif [[ "$OS_NAME" == "ubuntu" ]]; then
+# if [[ "$OS_NAME" == "arch" ]]; then
+#   fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
+# el
+if [[ "$OS_NAME" == "ubuntu" ]]; then
   dec-banner
 fi
 
@@ -140,7 +141,7 @@ alias newproj="$HOME/projects/new_proj.sh"
 alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projects/pers/commitstats/priv2.py"
 alias atlas_backup="$HOME/atlas-backups/atlas-backup.sh"
 alias dcupdate="$gimme discord"
-alias lost="echo '$(whoami)@$(hostname):$PWD'"
+alias lost="echo '$(whoami)@$HOST:$PWD'"
 alias repo="gh repo view --web"
 alias qd-vpn="sudo tailscale switch qd && sudo tailscale up --exit-node=qdentity-mac-mini --operator=$USER"
 alias qd-vpn-off="sudo tailscale switch du && sudo tailscale up --operator=$USER"
@@ -233,7 +234,7 @@ build_prompt() {
   local user_host
   local status_indicator=""
   
-  if [[ "$USER@$HOST" == "ggijs@lithium" ]] || [[ "$USER@$(hostname)" == "ggijs@lithium" ]]; then
+  if [[ "$USER@$HOST" == "ggijs@lithium" ]]; then
     user_host="%{$fg[yellow]%}%n@%m"
   else
     user_host="%{$fg[red]%}%n@%m"
