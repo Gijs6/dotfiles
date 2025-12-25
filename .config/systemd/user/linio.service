@@ -3,7 +3,7 @@ Description=Linio
 After=network.target
 
 [Service]
-ExecStart=%h/.local/bin/linio --git %h/scribbles
+ExecStart=/bin/sh -c '. ~/.keychain/lithium-sh && exec %h/.local/bin/linio --git %h/scribbles'
 Restart=always
 WorkingDirectory=%h/scribbles
 Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
