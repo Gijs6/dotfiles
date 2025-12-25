@@ -85,6 +85,7 @@ export QDENTITY_DB_PARAMS="host=35.233.53.53 \
   sslmode=verify-ca"
 
 export LC_CTYPE=en_GB.UTF-8
+export LC_TIME=nl_NL.UTF-8
 
 # -----------------------------
 # Startup shit
