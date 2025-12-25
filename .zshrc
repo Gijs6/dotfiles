@@ -58,7 +58,7 @@ compinit
 # SSH
 # -----------------------------
 if [[ "$OS_NAME" == "arch" ]]; then
-  eval "$(keychain --eval ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+  eval "$(keychain --eval --quiet ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
   export SSH_AUTH_SOCK
 fi
 
