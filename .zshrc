@@ -173,13 +173,6 @@ fi
 alias szrc="source ~/.zshrc"
 alias ezrc="e ~/.zshrc"
 
-if [[ "$OS_NAME" == "arch" ]]; then
-  # GPU management
-  alias intel="optimus-manager --switch intel --no-confirm"
-  alias nvidia="optimus-manager --switch nvidia --no-confirm"
-  alias hybrid="optimus-manager --switch hybrid --no-confirm"
-  alias gpu="optimus-manager --status"
-fi
 
 # -----------------------------
 # Functions

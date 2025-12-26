@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# GPU management wrapper for optimus-manager
+
+case "$1" in
+  intel)
+    optimus-manager --switch intel --no-confirm
+    ;;
+  nvidia)
+    optimus-manager --switch nvidia --no-confirm
+    ;;
+  hybrid)
+    optimus-manager --switch hybrid --no-confirm
+    ;;
+  "")
+    optimus-manager --status
+    ;;
+  *)
+    echo "Usage: gpu [intel|nvidia|hybrid]"
+    echo "  gpu          - show current GPU status"
+    echo "  gpu intel    - switch to Intel GPU"
+    echo "  gpu nvidia   - switch to NVIDIA GPU"
+    echo "  gpu hybrid   - switch to hybrid mode"
+    exit 1
+    ;;
+esac
