@@ -15,7 +15,7 @@ usage() {
 }
 
 setup_dotfiles() {
-    EXCLUDES=".git .gitignore dotfiles README.md"
+    EXCLUDES=".git .gitignore dotfiles README.md LICENSE"
     HOST_EXCLUDES=".local/bin/lift"  # files not to link on secondary (non-main) hosts
 
     cd "$DOTFILES" || exit 1
