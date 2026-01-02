@@ -29,8 +29,8 @@
     unstage = restore --staged
     amend = commit --amend
     fuckit = reset --hard
-	shit = !git add -A && git commit --amend --no-edit && git push --force-with-lease
-	rename = !git commit --amend && git push --force-with-lease
+	shit = \\!git add -A && git commit --amend --no-edit && read -p \"Push to remote? (y/N): \" answer && [ \"$answer\" = \"y\" ] && git push --force-with-lease || true
+	rename = \\!git commit --amend && read -p \"Push to remote? (y/N): \" answer && [ \"$answer\" = \"y\" ] && git push --force-with-lease || true
 
     # Remove branches deleted on remote
     pr = !git fetch --all --prune && git branch -vv | grep '\\(origin\\|fork\\|src\\)/.*: gone]' | awk '{print $1}' | xargs git branch -D

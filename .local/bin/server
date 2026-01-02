@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
+import sys
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import unquote
 
@@ -40,11 +41,46 @@ def main():
     parser.add_argument("--dir", default=".")
     args = parser.parse_args()
 
-    os.chdir(args.dir)
-    httpd = HTTPServer(("0.0.0.0", args.port), Handler)
+    # Change to target directory with error handling
+    try:
+        os.chdir(args.dir)
+    except FileNotFoundError:
+        print(f"Error: Directory '{args.dir}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError:
+        print(f"Error: Permission denied accessing directory '{args.dir}'.", file=sys.stderr)
+        sys.exit(1)
+
+    # Create HTTP server with error handling
+    try:
+        httpd = HTTPServer(("0.0.0.0", args.port), Handler)
+    except PermissionError:
+        print(f"Error: Cannot bind to port {args.port}.", file=sys.stderr)
+        if args.port < 1024:
+            print("Ports below 1024 require root privileges.", file=sys.stderr)
+            print(f"Try: sudo server --port={args.port}", file=sys.stderr)
+            print("Or use a higher port: server --port=8080", file=sys.stderr)
+        sys.exit(1)
+    except OSError as e:
+        if e.errno == 98:  # EADDRINUSE
+            print(f"Error: Port {args.port} is already in use.", file=sys.stderr)
+            print(f"Try a different port: server --port={args.port + 1}", file=sys.stderr)
+        elif e.errno == 99:  # EADDRNOTAVAIL
+            print(f"Error: Cannot bind to address 0.0.0.0:{args.port}.", file=sys.stderr)
+        else:
+            print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
     print(f"Serving HTTP on 0.0.0.0 port {args.port} (http://0.0.0.0:{args.port}/) ...")
     print(f"Serving directory: {os.getcwd()}")
-    httpd.serve_forever()
+
+    # Serve with graceful shutdown
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nShutting down server...")
+        httpd.shutdown()
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()

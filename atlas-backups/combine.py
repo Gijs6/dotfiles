@@ -41,8 +41,16 @@ print(f"\nProcessing backup: {selected_backup}")
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
-cursor.execute("SELECT title, path FROM pages ORDER BY id")
+cursor.execute("SELECT title, path, published, visibility FROM pages ORDER BY id")
 rows = cursor.fetchall()
+
+visibility_map = {
+    10: "private",
+    20: "hidden",
+    30: "close friends",
+    40: "rss-only",
+    50: "public"
+}
 
 output_file = f"combined_{selected_backup}.md"
 
@@ -52,12 +60,16 @@ with open(output_file, "w", encoding="utf-8") as out_md:
     out_md.write(f"# Combined pages (from backup {selected_backup})\n\n")
     out_md.write("---\n")
 
-    for idx, (title, path) in enumerate(rows, 1):
+    for idx, (title, path, published, visibility) in enumerate(rows, 1):
         full_path = os.path.join(selected_backup, path)
 
         print(f"[{idx}/{len(rows)}] {title} ({path})")
 
-        out_md.write(f"\n## {title}\n\n")
+        
+        out_md.write(f"\n## {title}\n")
+        visibility_name = visibility_map.get(visibility, f"Unknown ({visibility})")
+        out_md.write(f"<!-- {published} | {visibility_name} -->\n\n")
+
         try:
             if os.path.exists(full_path):
                 with open(full_path, "r", encoding="utf-8") as md_file:

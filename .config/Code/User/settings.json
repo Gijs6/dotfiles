@@ -3,7 +3,7 @@
     "editor.fontFamily": "\"JetBrains Mono\"",
     "explorer.confirmDelete": false,
     "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "git.enableSmartCommit": true,
     "git.autofetch": true,
