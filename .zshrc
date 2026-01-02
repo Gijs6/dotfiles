@@ -99,6 +99,7 @@ fi
 #   fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
 # el
 if [[ "$OS_NAME" == "ubuntu" ]]; then
+  clear
   dec-banner
 fi
 
@@ -122,6 +123,7 @@ alias open="xdg-open"
 alias cl="clear"
 alias clip="xclip -selection clipboard"
 alias die="killall"
+alias curl="curl -vLif"
 
 # Package management
 if [[ "$OS_NAME" == "arch" ]]; then
