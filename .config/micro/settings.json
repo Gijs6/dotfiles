@@ -1,3 +1,6 @@
 {
-  "colorscheme": "monokai-dark"
+    "colorscheme": "monokai-dark",
+    "softwrap": true,
+    "tabsize": 4,
+    "tabstospaces": true
 }
