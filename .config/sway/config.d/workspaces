@@ -20,3 +20,6 @@ bindsym $mod+Shift+9 move container to workspace number 9
 
 bindsym $mod+Shift+Control+Left move workspace to output left
 bindsym $mod+Shift+Control+Right move workspace to output right
+
+focus_wrapping workspace
+focus_follows_mouse always
