@@ -138,7 +138,6 @@ alias open="xdg-open"
 alias cl="clear"
 alias clip="xclip -selection clipboard"
 alias die="killall"
-alias curl="curl -vLif"
 
 # Package management
 if [[ "$OS_NAME" == "arch" ]]; then
