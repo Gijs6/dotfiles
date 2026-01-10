@@ -1,0 +1,14 @@
+font=Source Code Pro 12
+width=400
+background-color=#0d1117
+text-color=#c9d1d9
+border-color=#58a6ff
+border-size=2
+border-radius=5
+padding=10
+margin=10
+default-timeout=5000
+ignore-timeout=0
+
+[urgency=high]
+border-color=#ff7b72
