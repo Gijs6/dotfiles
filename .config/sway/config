@@ -12,11 +12,4 @@ set $yellow   #ffc300
 set $magenta  #bc8cff
 set $black    #484f58
 
-include ~/.config/sway/config.d/input
-include ~/.config/sway/config.d/outputs
-include ~/.config/sway/config.d/appearance
-include ~/.config/sway/config.d/keybindings
-include ~/.config/sway/config.d/workspaces
-include ~/.config/sway/config.d/media
-include ~/.config/sway/config.d/autostart
-include ~/.config/sway/config.d/rules
+include ~/.config/sway/config.d/*
