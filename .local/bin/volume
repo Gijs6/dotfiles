@@ -1,0 +1,52 @@
+#!/bin/sh -eu
+# Simple volume control.
+
+usage() {
+  echo "Usage: $(basename $0) <percent/+percent/-percent/up/down/off>"
+  echo
+  exit 0
+}
+
+# Default step size
+step=5
+
+set_volume() {
+  case "$1" in
+    [+-]*)
+        pactl set-sink-volume @DEFAULT_SINK@ $1% 
+        ;;
+
+    up)
+        pactl set-sink-volume @DEFAULT_SINK@ +$step% 
+        ;;
+
+    down)
+        pactl set-sink-volume @DEFAULT_SINK@ -$step% 
+        ;;
+
+    off)
+        pactl set-sink-volume @DEFAULT_SINK@ 0
+        ;;
+
+    *) # Assume a percent
+        pactl set-sink-volume @DEFAULT_SINK@ $1%
+        ;;
+  esac
+}
+
+get_volume() {
+  echo $(pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}')
+}
+
+case "${1:-}" in
+  ""|-h|--help)
+    usage
+    ;;
+  *)
+    set_volume $1
+    ;;
+esac
+
+if [ -n "${WOB_SOCK+set}" ]; then
+  echo $(get_volume) > $WOB_SOCK
+fi 

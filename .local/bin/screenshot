@@ -1,0 +1,15 @@
+#!/bin/sh -eu
+# Takes a screenshot, saves it to disk and clipboard.
+
+required slurp
+required grim
+required wl-copy
+
+path="$HOME/Pictures/screens/$(date +'%Y-%m-%d-%H%M%S.png')"
+slurp | grim -g - - > "$path"
+
+if [ -s "$path" ]; then
+    wl-copy < "$path"
+else
+    rm "$path"
+fi

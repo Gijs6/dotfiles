@@ -1,0 +1,31 @@
+#!/bin/sh
+
+required pactl
+
+usage() {
+  echo "Usage: $(basename $0) <mute/unmute/toggle>"
+  echo
+  exit 0
+}
+
+mic_mode() {
+  pactl set-source-mute @DEFAULT_SOURCE@ $1
+}
+
+case ${1:-} in
+  ""|-h|--help)
+    usage 
+    ;;
+  mute)
+    mic_mode 1
+    ;;
+  unmute)
+    mic_mode 0
+    ;;
+  toggle)
+    mic_mode toggle
+    ;;
+  *)
+    err "unknown subcommand."
+    ;;
+esac
