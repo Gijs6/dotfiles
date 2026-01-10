@@ -67,6 +67,7 @@ compdef _killall killall die
 if [[ "$OS_NAME" == "arch" ]]; then
   eval "$(keychain --eval --quiet ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
   export SSH_AUTH_SOCK
+  systemctl --user import-environment SSH_AUTH_SOCK
 fi
 
 # -----------------------------
