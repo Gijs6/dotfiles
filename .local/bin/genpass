@@ -9,20 +9,32 @@ def generate_password(length: int, charset: str) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate a random password")
+    parser = argparse.ArgumentParser(
+        description="Generate cryptographically secure random passwords",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     parser.add_argument(
         "-l",
         "--length",
         type=int,
-        default=16,
-        help="Length of the password (default: 16)",
+        default=25,
+        metavar="N",
+        help="password length (default: 25)",
     )
     parser.add_argument(
         "-c",
         "--charset",
-        choices=["alnum", "ascii", "hex"],
-        default="ascii",
-        help="Charset: alnum (A-Za-z0-9), ascii (letters+digits+symbols), hex (0-9a-f)",
+        choices=["alnum", "ascii", "hex", "safe", "letters", "upper", "lower", "digits"],
+        default="safe",
+        metavar="TYPE",
+        help="character set: alnum (A-Za-z0-9), ascii (all printable), "
+        "hex (0-9a-f), safe (bash-safe: A-Za-z0-9_.-,/:), "
+        "letters (A-Za-z), upper (A-Z), lower (a-z), digits (0-9) (default: safe)",
+    )
+    parser.add_argument(
+        "--no-ambiguous",
+        action="store_true",
+        help="exclude ambiguous characters (0O1lIS52ZB8)",
     )
     args = parser.parse_args()
 
@@ -30,8 +42,22 @@ def main():
         charset = string.ascii_letters + string.digits
     elif args.charset == "hex":
         charset = string.hexdigits.lower()[:16]
-    else:
+    elif args.charset == "ascii":
         charset = string.ascii_letters + string.digits + string.punctuation
+    elif args.charset == "letters":
+        charset = string.ascii_letters
+    elif args.charset == "upper":
+        charset = string.ascii_uppercase
+    elif args.charset == "lower":
+        charset = string.ascii_lowercase
+    elif args.charset == "digits":
+        charset = string.digits
+    else:
+        charset = string.ascii_letters + string.digits + "_.-,/:"
+
+    if args.no_ambiguous:
+        ambiguous = "0O1lIS52ZB8"
+        charset = "".join(c for c in charset if c not in ambiguous)
 
     print(generate_password(args.length, charset))
 
