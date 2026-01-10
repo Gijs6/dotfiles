@@ -1,0 +1,19 @@
+width = 40%
+height = 50%
+border-width = 2
+outline-width = 0
+padding-left = 2%
+padding-top = 2%
+corner-radius = 5
+
+background-color = #14141d
+border-color = #4c7899
+text-color = #ffffff
+selection-color = #285577
+prompt-color = #4c7899
+
+font = monospace
+font-size = 14
+
+num-results = 10
+prompt-text = "run: "
