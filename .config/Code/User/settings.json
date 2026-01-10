@@ -87,5 +87,6 @@
     },
     "explorer.confirmDragAndDrop": false,
     "claudeCode.preferredLocation": "panel",
-    "terminal.integrated.suggest.enabled": false
+    "terminal.integrated.suggest.enabled": false,
+    "workbench.secondarySideBar.defaultVisibility": "hidden"
 }
