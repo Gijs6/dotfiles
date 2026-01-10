@@ -54,6 +54,13 @@ autoload -Uz colors && colors
 autoload -Uz compinit
 compinit
 
+_killall() {
+  local -a processes
+  processes=(${(f)"$(ps axo comm= | sort -u)"})
+  _describe 'process' processes
+}
+compdef _killall killall die
+
 # -----------------------------
 # SSH
 # -----------------------------
