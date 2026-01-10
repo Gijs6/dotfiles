@@ -1,0 +1,25 @@
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+q kill
+bindsym $mod+f fullscreen
+
+bindsym $mod+c exec $term
+bindsym $mod+Return exec $term
+bindcode --release 133 exec $menu
+bindsym $mod+a exec $term -e audio
+
+bindsym $mod+l exec swaylock
+bindsym $mod+r exec "killall -q waybar mako; swaymsg reload; waybar & mako &"
+bindsym $mod+Shift+r exec systemctl reboot
+bindsym $mod+Shift+p exec systemctl poweroff
+
+bindsym Print exec screenshot
+bindsym $mod+Shift+s exec screenshot

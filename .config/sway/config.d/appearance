@@ -1,0 +1,12 @@
+output * bg /usr/share/backgrounds/bg-00.jpg fill
+
+default_border pixel 1
+
+client.focused          $blue     $blue     $bg       $cyan
+client.unfocused        $black    $bg       $fg       $black
+
+bar {
+  mode invisible
+}
+
+exec waybar

@@ -1,0 +1,13 @@
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+    gsettings set $gnome-schema color-scheme 'prefer-dark'
+}
+
+exec mako
+exec autotiling
+exec wl-paste -t text --watch clipman store --no-persist
+
+exec --no-startup-id discord
