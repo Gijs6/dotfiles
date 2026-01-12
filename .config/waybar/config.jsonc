@@ -55,8 +55,8 @@
     },
 
     "battery": {
-        "format": "BAT {capacity}%",
-        "format-charging": "CHG {capacity}%",
+        "format": "BAT {capacity}% {time}",
+        "format-charging": "CHG {capacity}% {time}",
         "format-plugged": "AC {capacity}%",
         "states": {
             "warning": 30,
