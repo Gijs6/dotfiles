@@ -1,6 +1,6 @@
 set $mod Mod4
 set $term footclient
-set $menu tofi-wrapper
+set $menu tofi-drun
 
 set $bg       #0d1117
 set $fg       #c9d1d9
