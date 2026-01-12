@@ -2,7 +2,7 @@ import os
 import sqlite3
 
 backups = sorted(
-    [d for d in os.listdir(".") if os.path.isdir(d) and d.startswith("2025-")]
+    [d for d in os.listdir(".") if os.path.isdir(d) and d.startswith("202")]
 )
 
 if not backups:
