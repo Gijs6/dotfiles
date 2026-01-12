@@ -1,4 +1,4 @@
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE PATH
 exec --no-startup-id dbus-update-activation-environment --all
 
 set $gnome-schema org.gnome.desktop.interface
