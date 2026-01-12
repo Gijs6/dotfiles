@@ -3,17 +3,25 @@
     "position": "top",
     "height": 30,
 
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "backlight", "pulseaudio", "network", "battery"],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "disk",
+        "battery",
+        "backlight",
+        "pulseaudio",
+        "custom/microphone",
+        "bluetooth",
+        "network",
+        "custom/tailscale"
+    ],
 
     "sway/workspaces": {
         "format": "{name}",
         "disable-scroll": false
-    },
-
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
     },
 
     "sway/window": {
@@ -23,44 +31,122 @@
     "clock": {
         "format": "{:%A %d %B (%m) %Y %H:%M:%S %z}",
         "tooltip-format": "{:%Y-%m-%d | %H:%M:%S}",
-        "interval": 1
+        "interval": 1,
+        "on-click": "alacritty -e sh -c 'cal -3 && read'"
     },
 
     "cpu": {
-        "format": "CPU {usage}%",
-        "tooltip": false
+        "format": "{usage:02d}%",
+        "tooltip": false,
+        "interval": 2,
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "alacritty -e htop"
     },
 
     "memory": {
-        "format": "MEM {percentage}%",
-        "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
+        "format": "{percentage:02d}%",
+        "tooltip-format": "{used:0.1f}GB / {total:0.1f}GB",
+        "interval": 2,
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "alacritty -e htop"
+    },
+
+    "temperature": {
+        "format": "{temperatureC:02d}°C",
+        "critical-threshold": 80,
+        "interval": 2,
+        "states": {
+            "medium": 60,
+            "critical": 80
+        },
+        "tooltip": false,
+        "on-click": "alacritty -e htop"
+    },
+
+    "disk": {
+        "format": "{percentage_used:02d}%",
+        "path": "/",
+        "interval": 30,
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "tooltip-format": "{specific_used:0.1f}GB / {specific_total:0.1f}GB",
+        "on-click": "alacritty -e ncdu /",
+        "unit": "GB"
     },
 
     "backlight": {
-        "format": "BRI {percent}%",
+        "format": "{percent:02d}%",
         "tooltip": false
     },
 
     "pulseaudio": {
-        "format": "VOL {volume}%",
-        "format-muted": "MUTE",
-        "on-click": "pavucontrol"
+        "format": "VOL {volume:02d}%",
+        "format-muted": "VOL mut",
+        "on-click": "pavucontrol",
+        "tooltip-format": "Audio: {desc}"
+    },
+
+    "custom/microphone": {
+        "exec": "~/.config/waybar/scripts/microphone-status.sh",
+        "interval": 1,
+        "return-type": "json",
+        "on-click": "mic toggle",
+        "tooltip": true
     },
 
     "network": {
-        "format-wifi": "WIFI {essid}",
-        "format-ethernet": "ETH {ifname}",
-        "format-disconnected": "NET Disconnected",
-        "tooltip-format": "{ipaddr}/{cidr}"
+        "format-wifi": "{essid}",
+        "format-ethernet": "ETH",
+        "format-disconnected": "NET off",
+        "tooltip-format": "Network: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "tooltip-format-wifi": "Network: WiFi\nSSID: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "tooltip-format-ethernet": "Network: Ethernet\nInterface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "tooltip-format-disconnected": "Network is disconnected",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "BLU set",
+        "format-connected": "BLU {num_connections}",
+        "format-disabled": "BLU dis",
+        "format-off": "BLU off",
+        "tooltip-format": "Bluetooth: {status}\nController: {controller_alias}\n{num_connections} devices connected",
+        "tooltip-format-connected": "Bluetooth: {status}\nController: {controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-disabled": "Bluetooth is disabled",
+        "tooltip-format-off": "Bluetooth is off",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%",
+        "on-click": "blueman-manager"
+    },
+
+    "custom/tailscale": {
+        "exec": "~/.config/waybar/scripts/tailscale-status.sh",
+        "interval": 2,
+        "return-type": "json",
+        "on-click": "tailscale up || tailscale down",
+        "tooltip": true
     },
 
     "battery": {
-        "format": "BAT {capacity}% {time}",
-        "format-charging": "CHG {capacity}% {time}",
-        "format-plugged": "AC {capacity}%",
+        "format": "{capacity:02d}% {time}",
+        "format-charging": "CHR {capacity:02d}% {time}",
+        "format-plugged": "PLG {capacity:02d}%",
+        "format-full": "FUL",
         "states": {
             "warning": 30,
-            "critical": 15
-        }
+            "critical": 15,
+            "empty": 5
+        },
+        "format-time": "{H}h{m}m",
+        "interval": 10,
+        "tooltip-format": "Battery: {capacity}%s\nTime remaining: {time}\nPower: {power}W"
     }
 }

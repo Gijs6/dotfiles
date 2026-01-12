@@ -1,3 +1,15 @@
+@define-color bg-primary #0d1117;
+@define-color fg-primary #c9d1d9;
+@define-color fg-dark #0d1117;
+
+@define-color color-blue #58a6ff;
+@define-color color-purple #bc8cff;
+@define-color color-cyan #39c5cf;
+@define-color color-green #3fb950;
+@define-color color-yellow #ffc300;
+@define-color color-red #ff7b72;
+@define-color color-gray #484f58;
+
 * {
     border: none;
     border-radius: 0;
@@ -7,54 +19,249 @@
 }
 
 window#waybar {
-    background-color: #0d1117;
-    color: #c9d1d9;
+    background-color: @bg-primary;
+    color: @fg-primary;
 }
 
-#workspaces button {
-    padding: 0 8px;
-    background-color: transparent;
-    color: #c9d1d9;
-}
-
-#workspaces button:hover {
-    background-color: #484f58;
-}
-
-#workspaces button.focused {
-    background-color: #58a6ff;
-    color: #0d1117;
-}
-
-#workspaces button.urgent {
-    background-color: #ff7b72;
-    color: #0d1117;
-}
-
-#mode {
-    background-color: #ff7b72;
-    color: #0d1117;
-    padding: 0 10px;
-}
-
-#window,
 #clock,
 #cpu,
 #memory,
+#temperature,
+#disk,
+#battery,
+#backlight,
 #pulseaudio,
+#custom-microphone,
+#bluetooth,
 #network,
-#battery {
+#custom-tailscale {
     padding: 0 10px;
+    color: @fg-dark;
+    border-left: 1px solid @fg-dark;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: @fg-primary;
+}
+
+#workspaces button:hover {
+    background-color: @color-cyan;
+    color: @fg-dark;
+}
+
+#workspaces button.focused {
+    background-color: @color-blue;
+    color: @fg-dark;
+}
+
+#workspaces button.urgent {
+    background-color: @color-red;
+    color: @fg-dark;
+}
+
+#window {
+    padding: 0 35px;
+    margin: 0 5px;
+}
+
+#clock {
+    background-color: @color-blue;
+}
+
+#cpu {
+    background-color: @color-green;
+}
+
+#cpu.warning {
+    background-color: @color-yellow;
+}
+
+#cpu.critical {
+    background-color: @color-red;
+}
+
+#memory {
+    background-color: @color-green;
+}
+
+#memory.warning {
+    background-color: @color-yellow;
+}
+
+#memory.critical {
+    background-color: @color-red;
+}
+
+#temperature {
+    background-color: @color-green;
+}
+
+#temperature.medium {
+    background-color: @color-yellow;
+}
+
+#temperature.critical {
+    background-color: @color-red;
+}
+
+#disk {
+    background-color: @color-green;
+}
+
+#disk.warning {
+    background-color: @color-yellow;
+}
+
+#disk.critical {
+    background-color: @color-red;
+}
+
+#battery {
+    background-color: @color-green;
 }
 
 #battery.charging {
-    color: #3fb950;
+    background-color: @color-purple;
+}
+
+#battery.plugged {
+    background-color: @color-cyan;
 }
 
 #battery.warning:not(.charging) {
-    color: #ffc300;
+    background-color: @color-yellow;
 }
 
 #battery.critical:not(.charging) {
-    color: #ff7b72;
+    background-color: @color-red;
+}
+
+#backlight {
+    background-color: @color-yellow;
+}
+
+#pulseaudio {
+    background-color: @color-green;
+}
+
+#pulseaudio.muted,
+#pulseaudio.source-muted {
+    background-color: @color-red;
+}
+
+#pulseaudio.bluetooth {
+    background-color: @color-blue;
+}
+
+#pulseaudio.bluetooth.muted {
+    background-color: @color-red;
+}
+
+#custom-microphone {
+    background-color: @color-green;
+}
+
+#custom-microphone.muted {
+    background-color: @color-red;
+}
+
+#custom-microphone.error,
+#custom-microphone.unavailable {
+    background-color: @color-gray;
+    color: @fg-primary;
+}
+
+#bluetooth {
+    background-color: @color-yellow;
+}
+
+#bluetooth.disabled,
+#bluetooth.off,
+#bluetooth.no-controller {
+    background-color: @color-gray;
+    color: @fg-primary;
+}
+
+#bluetooth.on {
+    background-color: @color-yellow;
+}
+
+#bluetooth.connected {
+    background-color: @color-blue;
+}
+
+#bluetooth.discoverable,
+#bluetooth.discovering {
+    background-color: @color-cyan;
+}
+
+#bluetooth.pairable {
+    background-color: @color-purple;
+}
+
+#bluetooth.connected.discovering {
+    background-color: @color-cyan;
+}
+
+#bluetooth.connected.pairable {
+    background-color: @color-purple;
+}
+
+#network {
+    background-color: @color-green;
+}
+
+#network.ethernet {
+    background-color: @color-blue;
+}
+
+#network.wifi {
+    background-color: @color-cyan;
+}
+
+#network.linked {
+    background-color: @color-yellow;
+}
+
+#network.disconnected {
+    background-color: @color-red;
+}
+
+#network.wifi.linked {
+    background-color: @color-cyan;
+}
+
+#network.ethernet.linked {
+    background-color: @color-blue;
+}
+
+#custom-tailscale {
+    background-color: @color-purple;
+}
+
+#custom-tailscale.disconnected {
+    background-color: @color-red;
+}
+
+#custom-tailscale.exit-node {
+    background-color: @color-yellow;
+}
+
+#custom-tailscale.error,
+#custom-tailscale.not-installed {
+    background-color: @color-red;
+}
+
+#custom-tailscale.unknown {
+    background-color: @color-gray;
+}
+
+#custom-tailscale.exit-node.disconnected {
+    background-color: @color-red;
+}
+
+#custom-tailscale.exit-node.error {
+    background-color: @color-red;
 }
