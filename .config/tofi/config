@@ -17,3 +17,5 @@ font-size = 14
 
 num-results = 10
 prompt-text = "run: "
+terminal = foot
+drun-launch = true
