@@ -1,5 +1,5 @@
 set $mod Mod4
-set $term alacritty
+set $term footclient
 set $menu tofi-wrapper
 
 set $bg       #0d1117
