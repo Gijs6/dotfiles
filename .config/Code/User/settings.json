@@ -88,5 +88,7 @@
     "explorer.confirmDragAndDrop": false,
     "claudeCode.preferredLocation": "panel",
     "terminal.integrated.suggest.enabled": false,
-    "workbench.secondarySideBar.defaultVisibility": "hidden"
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "zig.zls.enabled": "on",
+    "chat.commandCenter.enabled": false
 }
