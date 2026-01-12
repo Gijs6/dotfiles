@@ -14,7 +14,6 @@ bindsym $mod+f fullscreen
 bindsym $mod+c exec $term
 bindsym $mod+Return exec $term
 bindcode --release 133 exec $menu
-bindsym $mod+a exec $term -e audio
 
 bindsym $mod+l exec swaylock
 bindsym $mod+r exec "killall -q waybar mako; swaymsg reload; waybar & mako &"
