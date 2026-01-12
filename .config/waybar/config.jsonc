@@ -88,8 +88,8 @@
     },
 
     "pulseaudio": {
-        "format": "VOL {volume:02d}%",
-        "format-muted": "VOL mut",
+        "format": "{volume:02d}%",
+        "format-muted": "MUT",
         "on-click": "pavucontrol",
         "tooltip-format": "Audio: {desc}"
     },

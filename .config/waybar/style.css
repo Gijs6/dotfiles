@@ -37,7 +37,7 @@ window#waybar {
 #custom-tailscale {
     padding: 0 10px;
     color: @fg-dark;
-    border-left: 1px solid @fg-dark;
+    border-left: 2px solid @fg-dark;
 }
 
 #workspaces button {
