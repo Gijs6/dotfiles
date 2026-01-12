@@ -52,7 +52,11 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 autoload -Uz colors && colors
 
 autoload -Uz compinit
-compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 _killall() {
   local -a processes
@@ -65,9 +69,13 @@ compdef _killall killall die
 # SSH
 # -----------------------------
 if [[ "$OS_NAME" == "arch" ]]; then
-  eval "$(keychain --eval --quiet ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+  if [[ ! -f /tmp/keychain-initialized-$UID ]]; then
+    eval "$(keychain --eval --quiet ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+    systemctl --user import-environment SSH_AUTH_SOCK
+    touch /tmp/keychain-initialized-$UID
+  fi
+  [[ -f ~/.keychain/$HOST-sh ]] && source ~/.keychain/$HOST-sh
   export SSH_AUTH_SOCK
-  systemctl --user import-environment SSH_AUTH_SOCK
 fi
 
 # -----------------------------
@@ -114,13 +122,13 @@ export LC_TIME=nl_NL.UTF-8
 # Startup shit
 # -----------------------------
 if [[ "$OS_NAME" == "arch" ]]; then
-  eval "$(thefuck --alias)"
-  eval "$(mise activate zsh)"
+  mise() {
+    unfunction mise
+    eval "$(command mise activate zsh)"
+    mise "$@"
+  }
 fi
 
-# if [[ "$OS_NAME" == "arch" ]]; then
-#   fortune | cowsay -f tux -W 60 | lolcat --spread=2 --seed=40
-# el
 if [[ "$OS_NAME" == "ubuntu" ]]; then
   clear
   dec-banner
