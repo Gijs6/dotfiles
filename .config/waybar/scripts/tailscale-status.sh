@@ -25,8 +25,9 @@ if [ "$backend_state" == "Running" ]; then
     tooltip="Tailscale: CONNECTED\nAccount: $account\nHostname: $hostname\nIP: $self_ip\nPeers: $peer_count"
 
     if [ -n "$exit_node_name" ]; then
+        exit_node_short=$(echo "$exit_node_name" | head -c 3)
         tooltip="$tooltip\nExit Node: $exit_node_name"
-        text="TSC ext $account_short"
+        text="TSC ext $exit_node_short $account_short"
         class="exit-node"
     else
         text="TSC $account_short"
