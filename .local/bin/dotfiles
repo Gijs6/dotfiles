@@ -6,11 +6,14 @@ usage() {
     echo "Usage: dotfiles <command> [args]"
     echo
     echo "Commands:"
-    echo "  setup             Symlink all dotfiles from ~/.dotfiles into \$HOME"
-    echo "  link <file>       Add the appropriate symlink for a file in ~/.dotfiles into \$HOME"
-    echo "  add <file>        Add a file to the dotfiles repo and replace it with a symlink"
-    echo "  git <args>        Run git inside the dotfiles repo"
-    echo "  help              Show this very text"
+    echo "  setup                Symlink all dotfiles from ~/.dotfiles into \$HOME"
+    echo "  link [-r] <file>...  Add the appropriate symlink for file(s) in ~/.dotfiles into \$HOME"
+    echo "  add [-r] <file>...   Add file(s) to the dotfiles repo and replace with symlink(s)"
+    echo "  git <args>           Run git inside the dotfiles repo"
+    echo "  help                 Show this very text"
+    echo
+    echo "Options:"
+    echo "  -r                   Process directories recursively"
     exit 1
 }
 
@@ -53,60 +56,120 @@ setup_dotfiles() {
 }
 
 link_dotfile() {
-    [ -z "$1" ] && echo "Usage: dotfiles link <file>" && exit 1
+    [ $# -eq 0 ] && echo "Usage: dotfiles link [-r] <file>..." && exit 1
 
-    # Resolve to absolute canonical path
-    source_path="$(realpath -m "$1")" || exit 1
+    recursive=false
+    if [ "$1" = "-r" ]; then
+        recursive=true
+        shift
+    fi
 
-    # Check if it's within the dotfiles folder
-    case "$source_path" in
-        "$DOTFILES"/*)
-            rel_path="${source_path#$DOTFILES/}"
-            ;;
-        *)
-            echo "Error: $source_path is not in the dotfiles folder ($DOTFILES)"
+    [ $# -eq 0 ] && echo "Usage: dotfiles link [-r] <file>..." && exit 1
+
+    process_link_file() {
+        source_path="$1"
+
+        # Check if it's within the dotfiles folder
+        case "$source_path" in
+            "$DOTFILES"/*)
+                rel_path="${source_path#$DOTFILES/}"
+                ;;
+            *)
+                echo "Error: $source_path is not in the dotfiles folder ($DOTFILES)"
+                return 1
+                ;;
+        esac
+
+        target_path="$HOME/$rel_path"
+
+        [ ! -f "$source_path" ] && echo "Error: $source_path does not exist or is not a regular file." && return 1
+        [ "$source_path" -ef "$target_path" ] && echo "Already linked: $rel_path" && return 0
+
+        mkdir -p "$(dirname "$target_path")"
+        ln -sfn "$source_path" "$target_path"
+        echo "Linked $rel_path -> $target_path"
+    }
+
+    for item in "$@"; do
+        # Resolve to absolute canonical path
+        abs_path="$(realpath -m "$item")" || exit 1
+
+        if [ -d "$abs_path" ]; then
+            if $recursive; then
+                find "$abs_path" -type f | while read -r file; do
+                    process_link_file "$file"
+                done
+            else
+                echo "Error: $abs_path is a directory (use -r to process recursively)"
+                exit 1
+            fi
+        elif [ -f "$abs_path" ]; then
+            process_link_file "$abs_path"
+        else
+            echo "Error: $abs_path does not exist"
             exit 1
-            ;;
-    esac
-
-    target_path="$HOME/$rel_path"
-
-    [ ! -f "$source_path" ] && echo "Error: $source_path does not exist or is not a regular file." && exit 1
-    [ "$source_path" -ef "$target_path" ] && echo "Already linked: $rel_path" && return
-
-    mkdir -p "$(dirname "$target_path")"
-    ln -sfn "$source_path" "$target_path"
-    echo "Linked $rel_path -> $target_path"
+        fi
+    done
 }
 
 add_dotfile() {
-    [ -z "$1" ] && echo "Usage: dotfiles add <file>" && exit 1
+    [ $# -eq 0 ] && echo "Usage: dotfiles add [-r] <file>..." && exit 1
 
-    # Resolve to absolute canonical path
-    abs_source_path="$(realpath -m "$1")" || exit 1
+    recursive=false
+    if [ "$1" = "-r" ]; then
+        recursive=true
+        shift
+    fi
 
-    # Check if it's within the home directory
-    case "$abs_source_path" in
-        "$HOME"/*)
-            rel_home_path="${abs_source_path#$HOME/}"
-            ;;
-        *)
-            echo "Error: $abs_source_path is not in your home directory ($HOME)"
+    [ $# -eq 0 ] && echo "Usage: dotfiles add [-r] <file>..." && exit 1
+
+    process_add_file() {
+        abs_source_path="$1"
+
+        # Check if it's within the home directory
+        case "$abs_source_path" in
+            "$HOME"/*)
+                rel_home_path="${abs_source_path#$HOME/}"
+                ;;
+            *)
+                echo "Error: $abs_source_path is not in your home directory ($HOME)"
+                return 1
+                ;;
+        esac
+
+        target_path="$DOTFILES/$rel_home_path"
+
+        [ ! -f "$abs_source_path" ] && echo "Error: $abs_source_path does not exist or is not a regular file." && return 1
+
+        mkdir -p "$(dirname "$target_path")"
+        mv "$abs_source_path" "$target_path"
+        ln -sfn "$target_path" "$abs_source_path"
+
+        cd "$DOTFILES" || exit 1
+        git add "$rel_home_path"
+        echo "Added $rel_home_path to dotfiles and created symlink."
+    }
+
+    for item in "$@"; do
+        # Resolve to absolute canonical path
+        abs_path="$(realpath -m "$item")" || exit 1
+
+        if [ -d "$abs_path" ]; then
+            if $recursive; then
+                find "$abs_path" -type f | while read -r file; do
+                    process_add_file "$file"
+                done
+            else
+                echo "Error: $abs_path is a directory (use -r to process recursively)"
+                exit 1
+            fi
+        elif [ -e "$abs_path" ]; then
+            process_add_file "$abs_path"
+        else
+            echo "Error: $abs_path does not exist"
             exit 1
-            ;;
-    esac
-
-    target_path="$DOTFILES/$rel_home_path"
-
-    [ ! -e "$abs_source_path" ] && echo "Error: $abs_source_path does not exist." && exit 1
-
-    mkdir -p "$(dirname "$target_path")"
-    mv "$abs_source_path" "$target_path"
-    ln -sfn "$target_path" "$abs_source_path"
-
-    cd "$DOTFILES" || exit 1
-    git add "$rel_home_path"
-    echo "Added $rel_home_path to dotfiles and created symlink."
+        fi
+    done
 }
 
 git_dotfiles() {
@@ -118,8 +181,8 @@ git_dotfiles() {
 
 case "$1" in
     setup) shift; setup_dotfiles ;;
-    link) shift; link_dotfile "$1" ;;
-    add) shift; add_dotfile "$1" ;;
+    link) shift; link_dotfile "$@" ;;
+    add) shift; add_dotfile "$@" ;;
     git) shift; git_dotfiles "$@" ;;
     help) usage ;;
     *) usage ;;
