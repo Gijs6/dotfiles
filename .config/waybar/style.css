@@ -1,6 +1,5 @@
-@define-color bg-primary #0d1117;
-@define-color fg-primary #c9d1d9;
-@define-color fg-dark #0d1117;
+@define-color color-white #c9d1d9;
+@define-color color-black #0d1117;
 
 @define-color color-blue #58a6ff;
 @define-color color-purple #bc8cff;
@@ -19,8 +18,8 @@
 }
 
 window#waybar {
-    background-color: @bg-primary;
-    color: @fg-primary;
+    background-color: @color-black;
+    color: @color-white;
 }
 
 #clock,
@@ -36,29 +35,29 @@ window#waybar {
 #network,
 #custom-tailscale {
     padding: 0 10px;
-    color: @fg-dark;
-    border-left: 2px solid @fg-dark;
+    color: @color-black;
+    border-left: 2px solid @color-black;
 }
 
 #workspaces button {
     padding: 0 5px;
     background-color: transparent;
-    color: @fg-primary;
+    color: @color-white;
 }
 
 #workspaces button:hover {
     background-color: @color-cyan;
-    color: @fg-dark;
+    color: @color-black;
 }
 
 #workspaces button.focused {
     background-color: @color-blue;
-    color: @fg-dark;
+    color: @color-black;
 }
 
 #workspaces button.urgent {
     background-color: @color-red;
-    color: @fg-dark;
+    color: @color-black;
 }
 
 #window {
@@ -122,12 +121,12 @@ window#waybar {
     background-color: @color-green;
 }
 
-#battery.charging {
-    background-color: @color-purple;
-}
-
 #battery.plugged {
     background-color: @color-cyan;
+}
+
+#battery.charging {
+    background-color: @color-purple;
 }
 
 #battery.warning:not(.charging) {
@@ -151,8 +150,8 @@ window#waybar {
     background-color: @color-blue;
 }
 
-#pulseaudio.critical,
-#pulseaudio.warning {
+#pulseaudio.warning,
+#pulseaudio.critical {
     background-color: @color-red;
 }
 
@@ -167,20 +166,10 @@ window#waybar {
 #custom-microphone.error,
 #custom-microphone.unavailable {
     background-color: @color-gray;
-    color: @fg-primary;
+    color: @color-white;
 }
 
-#bluetooth {
-    background-color: @color-yellow;
-}
-
-#bluetooth.disabled,
-#bluetooth.off,
-#bluetooth.no-controller {
-    background-color: @color-gray;
-    color: @fg-primary;
-}
-
+#bluetooth,
 #bluetooth.on {
     background-color: @color-yellow;
 }
@@ -190,32 +179,35 @@ window#waybar {
 }
 
 #bluetooth.discoverable,
-#bluetooth.discovering {
-    background-color: @color-cyan;
-}
-
-#bluetooth.pairable {
-    background-color: @color-purple;
-}
-
+#bluetooth.discovering,
 #bluetooth.connected.discovering {
     background-color: @color-cyan;
 }
 
+#bluetooth.pairable,
 #bluetooth.connected.pairable {
     background-color: @color-purple;
+}
+
+#bluetooth.disabled,
+#bluetooth.off,
+#bluetooth.no-controller {
+    background-color: @color-gray;
+    color: @color-white;
 }
 
 #network {
     background-color: @color-green;
 }
 
-#network.ethernet {
-    background-color: @color-blue;
+#network.wifi,
+#network.wifi.linked {
+    background-color: @color-cyan;
 }
 
-#network.wifi {
-    background-color: @color-cyan;
+#network.ethernet,
+#network.ethernet.linked {
+    background-color: @color-blue;
 }
 
 #network.linked {
@@ -226,39 +218,22 @@ window#waybar {
     background-color: @color-red;
 }
 
-#network.wifi.linked {
-    background-color: @color-cyan;
-}
-
-#network.ethernet.linked {
-    background-color: @color-blue;
-}
-
 #custom-tailscale {
     background-color: @color-purple;
-}
-
-#custom-tailscale.disconnected {
-    background-color: @color-red;
 }
 
 #custom-tailscale.exit-node {
     background-color: @color-yellow;
 }
 
-#custom-tailscale.error,
-#custom-tailscale.not-installed {
-    background-color: @color-red;
-}
-
 #custom-tailscale.unknown {
     background-color: @color-gray;
 }
 
-#custom-tailscale.exit-node.disconnected {
-    background-color: @color-red;
-}
-
-#custom-tailscale.exit-node.error {
+#custom-tailscale.disconnected,
+#custom-tailscale.exit-node.disconnected,
+#custom-tailscale.error,
+#custom-tailscale.exit-node.error,
+#custom-tailscale.not-installed {
     background-color: @color-red;
 }

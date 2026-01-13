@@ -82,6 +82,21 @@
         "unit": "GB"
     },
 
+    "battery": {
+        "format": "{capacity:02d}% {time}",
+        "format-charging": "CHR {capacity:02d}% {time}",
+        "format-plugged": "PLG {capacity:02d}%",
+        "format-full": "FUL",
+        "states": {
+            "warning": 30,
+            "critical": 15,
+            "empty": 5
+        },
+        "format-time": "{H}h{m}m",
+        "interval": 10,
+        "tooltip-format": "Battery: {capacity}%\nTime remaining: {time}\nPower: {power}W"
+    },
+
     "backlight": {
         "format": "{percent:02d}%",
         "tooltip": false
@@ -106,17 +121,6 @@
         "tooltip": true
     },
 
-    "network": {
-        "format-wifi": "{essid}",
-        "format-ethernet": "ETH",
-        "format-disconnected": "NET off",
-        "tooltip-format": "Network: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
-        "tooltip-format-wifi": "Network: WiFi\nSSID: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
-        "tooltip-format-ethernet": "Network: Ethernet\nInterface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
-        "tooltip-format-disconnected": "Network is disconnected",
-        "on-click": "nm-connection-editor"
-    },
-
     "bluetooth": {
         "format": "BLU set",
         "format-connected": "BLU {num_connections}",
@@ -131,26 +135,22 @@
         "on-click": "blueman-manager"
     },
 
+    "network": {
+        "format-wifi": "{essid}",
+        "format-ethernet": "ETH",
+        "format-disconnected": "NET off",
+        "tooltip-format": "Network: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "tooltip-format-wifi": "Network: WiFi\nSSID: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "tooltip-format-ethernet": "Network: Ethernet\nInterface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+        "tooltip-format-disconnected": "Network is disconnected",
+        "on-click": "nm-connection-editor"
+    },
+
     "custom/tailscale": {
         "exec": "~/.config/waybar/scripts/tailscale-status.sh",
         "interval": 2,
         "return-type": "json",
         "on-click": "tailscale up || tailscale down",
         "tooltip": true
-    },
-
-    "battery": {
-        "format": "{capacity:02d}% {time}",
-        "format-charging": "CHR {capacity:02d}% {time}",
-        "format-plugged": "PLG {capacity:02d}%",
-        "format-full": "FUL",
-        "states": {
-            "warning": 30,
-            "critical": 15,
-            "empty": 5
-        },
-        "format-time": "{H}h{m}m",
-        "interval": 10,
-        "tooltip-format": "Battery: {capacity}%\nTime remaining: {time}\nPower: {power}W"
     }
 }
