@@ -6,7 +6,7 @@ default_border pixel 1
 default_orientation auto
 workspace_layout default
 
-client.focused          $magenta  $magenta  $bg       $cyan
+client.focused          $magenta  $magenta  $bg       $magenta
 client.unfocused        $black    $bg       $fg       $black
 
 bar {
