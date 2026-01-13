@@ -25,14 +25,12 @@ set_brightness() {
         new_brightness_p=$(( $current_brightness_p + $1 ))
         ;;
 
-    # Set brightness logarithmically by factor 1.4
-    # .72 is just slightly bigger than 1 / 1.4
     up)
-        new_brightness=$( echo $current_brightness | awk '{ print int(($1 + .72) * 1.4) }' )
+        new_brightness_p=$(( $current_brightness_p + 5 ))
         ;;
 
     down)
-        new_brightness=$( echo $current_brightness | awk '{ print int($1 / 1.4) }' )
+        new_brightness_p=$(( $current_brightness_p - 5 ))
         ;;
 
     off)
