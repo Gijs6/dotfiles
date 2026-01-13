@@ -1,4 +1,4 @@
-output * bg #3d2954 solid_color
+output * bg ~/.config/sway/fallback-bg.png fill
 exec "if [ -f /usr/share/backgrounds/bg-00.jpg ]; then swaymsg 'output * bg /usr/share/backgrounds/bg-00.jpg fill'; fi"
 
 default_border pixel 1
