@@ -142,20 +142,17 @@ window#waybar {
     background-color: @color-yellow;
 }
 
-#pulseaudio {
+#pulseaudio,
+#pulseaudio.normal {
     background-color: @color-green;
-}
-
-#pulseaudio.muted,
-#pulseaudio.source-muted {
-    background-color: @color-red;
 }
 
 #pulseaudio.bluetooth {
     background-color: @color-blue;
 }
 
-#pulseaudio.bluetooth.muted {
+#pulseaudio.critical,
+#pulseaudio.warning {
     background-color: @color-red;
 }
 

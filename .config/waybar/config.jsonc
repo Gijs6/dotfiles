@@ -89,9 +89,13 @@
 
     "pulseaudio": {
         "format": "{volume:02d}%",
-        "format-muted": "MUT",
         "on-click": "pavucontrol",
-        "tooltip-format": "Audio: {desc}"
+        "tooltip-format": "Audio: {desc}",
+        "states": {
+            "critical": 0,
+            "normal": 100,
+            "warning": 500
+        }
     },
 
     "custom/microphone": {
