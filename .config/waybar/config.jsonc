@@ -151,6 +151,6 @@
         },
         "format-time": "{H}h{m}m",
         "interval": 10,
-        "tooltip-format": "Battery: {capacity}%s\nTime remaining: {time}\nPower: {power}W"
+        "tooltip-format": "Battery: {capacity}%\nTime remaining: {time}\nPower: {power}W"
     }
 }
