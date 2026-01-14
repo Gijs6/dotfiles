@@ -156,7 +156,7 @@ alias rm="rm -r"
 alias qu="exit"
 alias open="xdg-open"
 alias cl="clear"
-alias clip="xclip -selection clipboard"
+alias clip="wl-copy"
 alias die="killall"
 
 # Package management
@@ -220,7 +220,7 @@ pls() {
 
 # Cat and copy to clipboard
 ccat() {
-  cat "$1" | tee >(xclip -selection clipboard)
+  cat "$1" | tee >(wl-copy)
 }
 
 # Extract archives
