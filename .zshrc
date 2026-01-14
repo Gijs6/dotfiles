@@ -69,6 +69,11 @@ compdef _killall killall die
 # SSH
 # -----------------------------
 if [[ "$OS_NAME" == "arch" ]]; then
+  if [[ ! -f /tmp/keychain-initialized-$UID ]]; then
+    eval "$(keychain --eval --quiet ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+    systemctl --user import-environment SSH_AUTH_SOCK
+    touch /tmp/keychain-initialized-$UID
+  fi
   [[ -f ~/.keychain/$HOST-sh ]] && source ~/.keychain/$HOST-sh
   export SSH_AUTH_SOCK
 
