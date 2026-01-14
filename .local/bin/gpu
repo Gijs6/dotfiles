@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# GPU management wrapper for optimus-manager
+# GPU management wrapper for EnvyControl
 
 case "$1" in
   intel)
-    optimus-manager --switch intel --no-confirm
+    sudo -A envycontrol -s integrated
     ;;
   nvidia)
-    optimus-manager --switch nvidia --no-confirm
+    sudo -A envycontrol -s nvidia
     ;;
   hybrid)
-    optimus-manager --switch hybrid --no-confirm
+    sudo -A envycontrol -s hybrid
     ;;
   "")
-    optimus-manager --status
+    envycontrol --query
     ;;
   *)
     echo "Usage: gpu [intel|nvidia|hybrid]"
