@@ -93,7 +93,7 @@
             "empty": 5
         },
         "format-time": "{H}h{m}m",
-        "interval": 10,
+        "interval": 5,
         "tooltip-format": "Battery: {capacity}%\nTime remaining: {time}\nPower: {power}W"
     },
 
