@@ -136,6 +136,7 @@
     },
 
     "network": {
+        "max-length": 12,
         "format-wifi": "{essid}",
         "format-ethernet": "ETH",
         "format-disconnected": "NET off",
