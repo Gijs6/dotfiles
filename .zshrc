@@ -130,6 +130,20 @@ export LC_TIME=nl_NL.UTF-8
 # -----------------------------
 # Startup shit
 # -----------------------------
+
+auto_venv() {
+  if [[ -f .venv/bin/activate ]]; then
+    if [[ -z "$VIRTUAL_ENV" || "$VIRTUAL_ENV" != "$PWD/.venv" ]]; then
+      source .venv/bin/activate
+    fi
+  elif [[ -n "$VIRTUAL_ENV" && ! -f "$VIRTUAL_ENV/bin/activate" ]]; then
+    deactivate
+  fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd auto_venv
+auto_venv
+
 if [[ "$OS_NAME" == "arch" ]]; then
   mise() {
     unfunction mise

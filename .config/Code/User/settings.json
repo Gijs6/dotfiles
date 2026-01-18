@@ -21,8 +21,8 @@
     "workbench.settings.openDefaultKeybindings": true,
     "python.createEnvironment.contentButton": "show",
     "python.defaultInterpreterPath": "/bin/python",
-    "python.terminal.activateEnvInCurrentTerminal": true,
-    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": false,
+    "python.terminal.activateEnvironment": false,
     "gitlens.currentLine.enabled": false,
     "git.confirmSync": false,
     "[json]": {
