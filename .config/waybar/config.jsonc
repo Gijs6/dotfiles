@@ -32,7 +32,6 @@
         "format": "{:%A %d %B (%m) %Y %H:%M:%S %z}",
         "tooltip-format": "{:%Y-%m-%d | %H:%M:%S}",
         "interval": 1,
-        "on-click": "alacritty -e sh -c 'cal -3 && read'"
     },
 
     "cpu": {
@@ -43,7 +42,6 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "alacritty -e htop"
     },
 
     "memory": {
@@ -54,7 +52,6 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "alacritty -e htop"
     },
 
     "temperature": {
@@ -66,7 +63,6 @@
             "critical": 80
         },
         "tooltip": false,
-        "on-click": "alacritty -e htop"
     },
 
     "disk": {
@@ -78,7 +74,6 @@
             "critical": 90
         },
         "tooltip-format": "{specific_used:0.1f}GB / {specific_total:0.1f}GB",
-        "on-click": "alacritty -e ncdu /",
         "unit": "GB"
     },
 
@@ -151,7 +146,6 @@
         "exec": "~/.config/waybar/scripts/tailscale-status.sh",
         "interval": 2,
         "return-type": "json",
-        "on-click": "tailscale up || tailscale down",
         "tooltip": true
     }
 }
