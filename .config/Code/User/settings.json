@@ -14,7 +14,8 @@
     "prettier.useTabs": false,
     "prettier.trailingComma": "none",
     "[markdown]": {
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        "diffEditor.ignoreTrimWhitespace": false
     },
     "workbench.settings.applyToAllProfiles": [],
     "terminal.integrated.tabs.title": "${process}",
