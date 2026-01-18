@@ -49,7 +49,7 @@ visibility_map = {
     20: "hidden",
     30: "close friends",
     40: "rss-only",
-    50: "public"
+    50: "public",
 }
 
 output_file = f"combined_{selected_backup}.md"
@@ -65,7 +65,6 @@ with open(output_file, "w", encoding="utf-8") as out_md:
 
         print(f"[{idx}/{len(rows)}] {title} ({path})")
 
-        
         out_md.write(f"\n## {title}\n")
         visibility_name = visibility_map.get(visibility, f"Unknown ({visibility})")
         out_md.write(f"<!-- {published} | {visibility_name} -->\n\n")
