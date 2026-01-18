@@ -1,0 +1,7 @@
+{
+    "quick latex chemistry": {
+        "prefix": "ce",
+        "body": ["$\\ce{$1}$"],
+        "description": "Insert $\\ce{…}$"
+    }
+}
