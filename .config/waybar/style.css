@@ -23,7 +23,6 @@ window#waybar {
 }
 
 #workspaces button,
-#clock,
 #cpu,
 #memory,
 #temperature,
@@ -41,7 +40,6 @@ window#waybar {
     transition: border-top-color 150ms ease-in-out;
 }
 
-#clock,
 #cpu,
 #memory,
 #temperature,
