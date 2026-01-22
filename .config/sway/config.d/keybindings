@@ -19,6 +19,7 @@ bindsym $mod+l exec swaylock
 bindsym $mod+r exec "killall -q waybar mako; swaymsg reload; waybar & mako &"
 bindsym $mod+Shift+r exec systemctl reboot
 bindsym $mod+Shift+p exec systemctl poweroff
+bindsym $mod+Shift+h exec systemctl suspend
 
 bindsym Print exec screenshot
 bindsym $mod+Shift+s exec screenshot
