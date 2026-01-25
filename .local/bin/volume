@@ -7,7 +7,6 @@ usage() {
   exit 0
 }
 
-# Default step size
 step=5
 
 set_volume() {
@@ -17,7 +16,12 @@ set_volume() {
         ;;
 
     up)
-        pactl set-sink-volume @DEFAULT_SINK@ +$step% 
+        current=$(get_volume)
+        if [ "$current" -lt 150 ]; then
+          new=$((current + step))
+          [ "$new" -gt 150 ] && new=150
+          pactl set-sink-volume @DEFAULT_SINK@ $new%
+        fi
         ;;
 
     down)
