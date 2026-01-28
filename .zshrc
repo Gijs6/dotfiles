@@ -192,8 +192,6 @@ elif [[ "$OS_NAME" == "ubuntu" ]]; then
 fi
 
 # Custom scripts / shortcuts
-alias newproj="$HOME/projects/new_proj.sh"
-alias gitcomgraph="$HOME/projects/pers/commitstats/.venv/bin/python $HOME/projects/pers/commitstats/priv2.py"
 alias atlas_backup="$HOME/atlas-backups/atlas-backup.sh"
 alias dcupdate="$gimme discord"
 alias lost="echo '$(whoami)@$HOST:$PWD'"
@@ -207,10 +205,8 @@ fi
 
 # Python
 alias py="python"
-alias venvm="python -m venv .venv && source .venv/bin/activate"
-alias venva="source .venv/bin/activate"
-alias venvre="rm -rf .venv && python -m venv .venv && source .venv/bin/activate"
-alias reqtxt="pip freeze > requirements.txt"
+alias pydepsget="pip install -r requirements.txt"
+alias pydepsdump="pip freeze > requirements.txt"
 
 # Elixir
 alias ex="elixir"
