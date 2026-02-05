@@ -1,2 +1,2 @@
-eval "$(keychain --eval --noask ~/.ssh/sign)"
+eval "$(keychain --eval --noask ~/.ssh/spring)"
 export SSH_AUTH_SOCK

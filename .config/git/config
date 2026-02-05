@@ -4,7 +4,7 @@
 [user]
     name = Gijs
     email = gijstenberg@gmail.com
-	signingkey = /home/ggijs/.ssh/sign.pub
+	signingkey = /home/ggijs/.ssh/spring.pub
 
 [commit]
 	gpgSign = true

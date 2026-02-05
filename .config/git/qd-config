@@ -1,7 +1,7 @@
 [user]
     name = Gijs
     email = gijs@qdentity.nl
-	signingkey = /home/ggijs/.ssh/qd.pub
+	signingkey = /home/ggijs/.ssh/summer.pub
 
 [credential "https://github.com"]
 	helper = 

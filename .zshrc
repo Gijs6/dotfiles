@@ -70,7 +70,7 @@ compdef _killall killall die
 # -----------------------------
 if [[ "$OS_NAME" == "arch" ]]; then
   if [[ ! -f /tmp/keychain-initialized-$UID ]]; then
-    eval "$(keychain --eval --quiet ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+    eval "$(keychain --eval --quiet ~/.ssh/winter ~/.ssh/spring ~/.ssh/summer)"
     systemctl --user import-environment SSH_AUTH_SOCK
     touch /tmp/keychain-initialized-$UID
   fi
@@ -78,7 +78,7 @@ if [[ "$OS_NAME" == "arch" ]]; then
   export SSH_AUTH_SOCK
 
   load-keys() {
-    eval "$(keychain --eval --quiet ~/.ssh/flower ~/.ssh/gh ~/.ssh/qd ~/.ssh/sign)"
+    eval "$(keychain --eval --quiet ~/.ssh/winter ~/.ssh/spring ~/.ssh/summer)"
     systemctl --user import-environment SSH_AUTH_SOCK
     touch /tmp/keychain-initialized-$UID
     source ~/.keychain/$HOST-sh 2>/dev/null
