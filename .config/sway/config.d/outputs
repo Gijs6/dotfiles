@@ -1,12 +1,2 @@
-output HDMI-A-1 {
-    mode 1920x1080@60Hz
-    position 0,0
-}
-
-output eDP-1 {
-    mode 1920x1080@60Hz
-    position 1920,540
-}
-
 bindswitch --reload --locked lid:on exec ~/.config/sway/lid-handler.sh
 bindswitch --reload --locked lid:off exec swaymsg output eDP-1 enable
