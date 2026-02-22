@@ -31,7 +31,7 @@
     "clock": {
         "format": "{:%A %d %B (%m) %Y %H:%M:%S %z}",
         "tooltip-format": "{:%Y-%m-%d | %H:%M:%S}",
-        "interval": 1,
+        "interval": 1
     },
 
     "cpu": {
@@ -41,7 +41,7 @@
         "states": {
             "warning": 70,
             "critical": 90
-        },
+        }
     },
 
     "memory": {
@@ -51,7 +51,7 @@
         "states": {
             "warning": 70,
             "critical": 90
-        },
+        }
     },
 
     "temperature": {
@@ -62,7 +62,7 @@
             "medium": 60,
             "critical": 80
         },
-        "tooltip": false,
+        "tooltip": false
     },
 
     "disk": {
@@ -81,6 +81,7 @@
         "format": "{capacity:02d}% {time}",
         "format-charging": "CHR {capacity:02d}% {time}",
         "format-plugged": "PLG {capacity:02d}%",
+        "format-not-charging": "NCH {capacity:02d}%",
         "format-full": "FUL",
         "states": {
             "warning": 30,
@@ -99,6 +100,7 @@
 
     "pulseaudio": {
         "format": "{volume:02d}%",
+        "format-bluetooth-muted": "MUT",
         "on-click": "pavucontrol",
         "tooltip-format": "Audio: {desc}",
         "states": {
@@ -117,10 +119,12 @@
     },
 
     "bluetooth": {
-        "format": "BLU set",
-        "format-connected": "BLU {num_connections}",
-        "format-disabled": "BLU dis",
-        "format-off": "BLU off",
+        "format": "RDY",
+        "format-connected": "CON",
+        "format-disabled": "DIS",
+        "format-off": "OFF",
+        "format-discoverable": "VIS",
+        "format-pairable": "PAR",
         "tooltip-format": "Bluetooth: {status}\nController: {controller_alias}\n{num_connections} devices connected",
         "tooltip-format-connected": "Bluetooth: {status}\nController: {controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-disabled": "Bluetooth is disabled",
@@ -134,7 +138,8 @@
         "max-length": 12,
         "format-wifi": "{essid}",
         "format-ethernet": "ETH",
-        "format-disconnected": "NET off",
+        "format-linked": "LNK",
+        "format-disconnected": "OFF",
         "tooltip-format": "Network: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
         "tooltip-format-wifi": "Network: WiFi\nSSID: {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
         "tooltip-format-ethernet": "Network: Ethernet\nInterface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",

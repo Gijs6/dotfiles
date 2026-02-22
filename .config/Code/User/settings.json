@@ -91,5 +91,12 @@
     "terminal.integrated.suggest.enabled": false,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "zig.zls.enabled": "on",
-    "chat.commandCenter.enabled": false
+    "chat.commandCenter.enabled": false,
+    "discord.workspaceExcludePatterns": [
+        "pluto",
+        "dnk",
+        "meervaart",
+        "qcart",
+        "dropis"
+    ]
 }

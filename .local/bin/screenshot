@@ -4,9 +4,16 @@
 required slurp
 required grim
 required wl-copy
+required wayfreeze
 
 path="$HOME/Pictures/screens/$(date +'%Y-%m-%d-%H%M%S.png')"
+
+wayfreeze &
+FREEZE_PID=$!
+sleep 0.2
+
 slurp | grim -g - - > "$path"
+kill $FREEZE_PID
 
 if [ -s "$path" ]; then
     wl-copy < "$path"

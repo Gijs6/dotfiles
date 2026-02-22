@@ -30,13 +30,6 @@ done
 DATE=$(date +%Y-%m-%d-%H%M%S)
 TMP_ARCHIVE="/tmp/arch-backup-$DATE.tar.gz"
 
-echo "Finding large .mp4 files to exclude..."
-# Handle spaces correctly
-MP4_EXCLUDES=()
-while IFS= read -r f; do
-    MP4_EXCLUDES+=("--exclude=$f")
-done < <(find "$HOME" -type f -name "*.mp4" -size +500M)
-
 echo "Creating compressed backup archive $TMP_ARCHIVE..."
 
 sudo tar --exclude=/dev \
@@ -48,8 +41,6 @@ sudo tar --exclude=/dev \
         --exclude=/media \
         --exclude=/lost+found \
         --exclude="$HOME/.local/share" \
-        --exclude="$HOME/projects/qd" \
-        --exclude="$HOME/.cache" \
         --exclude="$HOME/.npm" \
         --exclude="$HOME/.yarn" \
         --exclude="$HOME/.cargo" \
@@ -58,8 +49,6 @@ sudo tar --exclude=/dev \
         --exclude="$HOME/.hex" \
         --exclude="$HOME/.bun" \
         --exclude="$HOME/.bundle" \
-        --exclude="$HOME/.mozilla" \
-        --exclude="$HOME/.thunderbird" \
         --exclude="$HOME/.nv" \
         --exclude="$HOME/.nvidia-settings-rc" \
         --exclude="$HOME/.fly" \
@@ -73,7 +62,6 @@ sudo tar --exclude=/dev \
         --exclude='**/.venv' \
         --exclude='**/node_modules' \
         --exclude="*.iso" \
-        "${MP4_EXCLUDES[@]}" \
         -czvpf "$TMP_ARCHIVE" /
 
 echo "Archive created."

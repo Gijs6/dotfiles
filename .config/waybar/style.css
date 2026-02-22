@@ -162,10 +162,6 @@ window#waybar {
     border-top-color: @color-red;
 }
 
-#pulseaudio.bluetooth {
-    border-top-color: @color-blue;
-}
-
 #custom-microphone {
     border-top-color: @color-green;
 }

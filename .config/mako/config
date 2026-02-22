@@ -9,7 +9,7 @@ border-radius=0
 padding=20
 margin=10
 outer-margin=0
-anchor=top-right
+anchor=bottom-right
 text-alignment=left
 
 default-timeout=3000
@@ -35,9 +35,7 @@ output=
 format=<b>%s</b>\n%b
 
 on-button-left=invoke-default-action
-on-button-middle=exec makoctl menu -n "$id" dmenu -p 'Select action: '
 on-button-right=dismiss
-on-touch=dismiss
 
 [urgency=low]
 border-color=#484f58
