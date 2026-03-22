@@ -9,7 +9,7 @@ border-radius=0
 padding=20
 margin=10
 outer-margin=0
-anchor=bottom-right
+anchor=top-right
 text-alignment=left
 
 default-timeout=3000
