@@ -86,7 +86,6 @@
         "states": {
             "warning": 30,
             "critical": 15,
-            "empty": 5
         },
         "format-time": "{H}h{m}m",
         "interval": 5,
@@ -119,12 +118,12 @@
     },
 
     "bluetooth": {
-        "format": "RDY",
+        "format": "BLU",
+        "format-on": "RDY",  
+        "format-off": "OFF",
         "format-connected": "CON",
         "format-disabled": "DIS",
-        "format-off": "OFF",
-        "format-discoverable": "VIS",
-        "format-pairable": "PAR",
+        "format-no-controller": "ERR",
         "tooltip-format": "Bluetooth: {status}\nController: {controller_alias}\n{num_connections} devices connected",
         "tooltip-format-connected": "Bluetooth: {status}\nController: {controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-disabled": "Bluetooth is disabled",

@@ -5,5 +5,5 @@ external_count=$(swaymsg -t get_outputs | jq '[.[] | select(.name != "eDP-1" and
 if [ "$external_count" -gt 0 ]; then
     swaymsg output eDP-1 disable
 else
-    systemctl suspend
+    swaymsg output eDP-1 disable
 fi

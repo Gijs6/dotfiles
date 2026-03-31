@@ -7,10 +7,12 @@
   "IS_MAXIMIZED": true,
   "IS_MINIMIZED": false,
   "WINDOW_BOUNDS": {
-    "x": 0,
-    "y": 0,
-    "width": 1920,
-    "height": 1080
+    "x": 1,
+    "y": 31,
+    "width": 958,
+    "height": 1048
   },
-  "SKIP_HOST_UPDATE": true
+  "SKIP_HOST_UPDATE": true,
+  "enableLibOpenH264Electron": false,
+  "openH264Enabled": true
 }

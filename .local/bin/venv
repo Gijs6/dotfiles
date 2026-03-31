@@ -5,13 +5,13 @@
 VENV_DIR=".venv"
 
 case "$1" in
-  mk)
+  make)
     python -m venv "$VENV_DIR"
     ;;
-  act)
+  activate)
     source "$VENV_DIR/bin/activate"
     ;;
-  rst)
+  reset)
     rm -rf "$VENV_DIR"
     python -m venv "$VENV_DIR"
     source "$VENV_DIR/bin/activate"
@@ -31,11 +31,11 @@ case "$1" in
     ;;
   *)
     echo "Usage: venv [mk|act|rst|rm]"
-    echo "  venv         - check if venv exists"
-    echo "  venv mk      - create new venv"
-    echo "  venv act     - activate venv"
-    echo "  venv rst     - reset venv and install from requirements.txt"
-    echo "  venv rm      - remove venv"
+    echo "  venv           - check if venv exists"
+    echo "  venv make      - create new venv"
+    echo "  venv activate  - activate venv"
+    echo "  venv reset     - reset venv and install from requirements.txt"
+    echo "  venv rm        - remove venv"
     exit 1
     ;;
 esac

@@ -198,6 +198,7 @@ alias lost="echo '$(whoami)@$HOST:$PWD'"
 alias repo="gh repo view --web"
 alias qd-vpn="sudo tailscale switch qd && sudo tailscale up --exit-node=qdentity-mac-mini --operator=$USER"
 alias qd-vpn-off="sudo tailscale switch du && sudo tailscale up --operator=$USER"
+alias claudius="claude"
 
 if [[ "$OS_NAME" == "ubuntu" ]]; then
   alias rerouter="docker exec router caddy reload --config /etc/caddy/Caddyfile"
