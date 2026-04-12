@@ -101,7 +101,9 @@ system-config-printer
 tailscale
 thunderbird
 tlp
-tofi
+rofi
+rofi-code
+rofimoji
 tree
 ttf-google-fonts-git
 visual-studio-code-bin

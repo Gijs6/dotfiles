@@ -1,0 +1,3 @@
+action=copy
+clipboarder=wl-copy
+files=[emojis,latin_extended-a,latin_extended-b,latin_extended_additional,math,mathematical_operators,supplemental_mathematical_operators,miscellaneous_mathematical_symbols-a,miscellaneous_mathematical_symbols-b]

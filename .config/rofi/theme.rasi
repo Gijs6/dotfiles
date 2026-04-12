@@ -1,0 +1,152 @@
+/* Color palette matching waybar/mako */
+* {
+    color-black:  #0d1117;
+    color-white:  #c9d1d9;
+    color-blue:   #58a6ff;
+    color-purple: #bc8cff;
+    color-cyan:   #39c5cf;
+    color-green:  #3fb950;
+    color-yellow: #ffc300;
+    color-red:    #ff7b72;
+    color-gray:   #484f58;
+
+    background-color: transparent;
+    text-color:       @color-white;
+    font:             "monospace 13";
+}
+
+window {
+    background-color: @color-black;
+    border:           2px;
+    border-color:     @color-purple;
+    border-radius:    0;
+    width:            800px;
+    padding:          0;
+    anchor:           south west;
+    x-offset:         0;
+    y-offset:         0;
+}
+
+mainbox {
+    orientation:      vertical;
+    children:         [ inputbar, listview, modeswitcher ];
+    spacing:          0;
+}
+
+inputbar {
+    background-color: @color-black;
+    border:           0 0 2px 0;
+    border-color:     @color-gray;
+    padding:          8px 12px;
+    spacing:          8px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @color-purple;
+    padding:          0;
+}
+
+entry {
+    background-color: transparent;
+    text-color:       @color-white;
+    placeholder:      "search...";
+    placeholder-color: @color-gray;
+    padding:          0;
+    cursor:           text;
+}
+
+listview {
+    background-color: @color-black;
+    lines:            15;
+    columns:          1;
+    scrollbar:        false;
+    padding:          4px 0;
+    spacing:          0;
+    fixed-height:     true;
+}
+
+element {
+    background-color: transparent;
+    padding:          6px 12px;
+    spacing:          8px;
+    border:           0 0 0 3px;
+    border-color:     transparent;
+    orientation:      horizontal;
+    children:         [ element-icon, element-text ];
+}
+
+element selected.normal {
+    background-color: #161b22;
+    border-color:     @color-purple;
+    text-color:       @color-white;
+}
+
+element selected.urgent {
+    background-color: #161b22;
+    border-color:     @color-red;
+}
+
+element selected.active {
+    background-color: #161b22;
+    border-color:     @color-cyan;
+}
+
+element normal.urgent {
+    text-color: @color-red;
+}
+
+element normal.active {
+    text-color: @color-cyan;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             1.2em;
+    vertical-align:   0.5;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+    highlight:        bold;
+}
+
+modeswitcher {
+    background-color: #161b22;
+    border:           2px 0 0 0;
+    border-color:     @color-gray;
+    orientation:      horizontal;
+    spacing:          0;
+    expand:           false;
+}
+
+button {
+    background-color: transparent;
+    text-color:       @color-white;
+    padding:          8px 12px;
+    border:           3px 0 0 0;
+    border-color:     transparent;
+    cursor:           pointer;
+    expand:           false;
+}
+
+button selected {
+    background-color: transparent;
+    text-color:       @color-purple;
+    border-color:     @color-purple;
+}
+
+message {
+    background-color: @color-black;
+    border:           2px 0 0 0;
+    border-color:     @color-gray;
+    padding:          6px 12px;
+}
+
+textbox {
+    background-color: transparent;
+    text-color:       @color-yellow;
+}
