@@ -45,6 +45,7 @@ intel-ucode
 inter-font
 iptables-nft
 iwd
+jq
 keychain
 libinput-tools
 libmtp
@@ -111,6 +112,7 @@ waybar
 wdisplays
 wget
 whois
+wayfreeze
 wireless_tools
 wireplumber
 wl-clipboard
