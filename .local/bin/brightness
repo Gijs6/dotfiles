@@ -56,7 +56,7 @@ set_brightness() {
     new_brightness_p=0
   }
 
-  echo $new_brightness | tee $handler"/brightness"
+  brightnessctl -q set $new_brightness_p%
 }
 
 case "${1:-}" in
