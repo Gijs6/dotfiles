@@ -157,6 +157,13 @@ if [[ "$OS_NAME" == "ubuntu" ]]; then
   dec-banner
 fi
 
+eval "$(direnv hook zsh)"
+function _direnv_hook() {
+  trap -- '' SIGINT
+  eval "$(direnv export zsh 2>/dev/null)"
+  trap - SIGINT
+}
+
 # -----------------------------
 # Plugins
 # -----------------------------
