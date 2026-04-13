@@ -1,0 +1,4 @@
+#!/bin/bash
+[[ -f ~/.keychain/${HOSTNAME}-sh ]] && source ~/.keychain/${HOSTNAME}-sh
+systemctl --user import-environment SSH_AUTH_SOCK SSH_AGENT_PID 2>/dev/null
+exec /usr/sbin/rofi-code "$@"

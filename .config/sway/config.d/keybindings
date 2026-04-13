@@ -20,7 +20,7 @@ bindsym $mod+x exec rofi -show run
 bindsym $mod+e exec rofi -show filebrowser
 bindsym $mod+equal exec rofi -show calc -no-show-match -no-sort
 bindsym $mod+v exec clipman pick --tool rofi
-bindsym $mod+p exec rofi-code
+bindsym $mod+p exec code-launcher
 bindsym $mod+period exec rofimoji
 
 bindsym $mod+l exec swaylock
