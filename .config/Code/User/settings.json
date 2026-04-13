@@ -98,5 +98,6 @@
         "meervaart",
         "qcart",
         "dropis"
-    ]
+    ],
+    "window.autoDetectColorScheme": true
 }
