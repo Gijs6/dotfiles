@@ -5,7 +5,7 @@ configuration {
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
 /*	fixed-num-lines: true;*/
-/*	show-icons: false;*/
+	show-icons: true;
 /*	preview-cmd: ;*/
 /*	on-selection-changed: ;*/
 /*	on-mode-changed: ;*/
@@ -38,7 +38,7 @@ configuration {
 	sidebar-mode: true;
 /*	hover-select: false;*/
 /*	eh: 1;*/
-/*	auto-select: false;*/
+	auto-select: true;
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
 	combi-modes: "window,drun,run";
@@ -52,7 +52,7 @@ configuration {
 /*	window-format: "{w}    {c}   {t}";*/
 /*	click-to-exit: true;*/
 /*	global-kb: false;*/
-/*	max-history-size: 25;*/
+	max-history-size: 50;
 /*	combi-hide-mode-prefix: false;*/
 /*	combi-display-format: "{mode} {text}";*/
 /*	matching-negate-char: '-' /* unsupported */;*/
@@ -60,8 +60,8 @@ configuration {
 /*	window-thumbnail: false;*/
 /*	drun-use-desktop-cache: false;*/
 /*	drun-reload-desktop-cache: false;*/
-/*	normalize-match: false;*/
-/*	steal-focus: false;*/
+	normalize-match: true;
+	steal-focus: true;
 /*	application-fallback-icon: ;*/
 /*	refilter-timeout-limit: 300;*/
 /*	xserver-i300-workaround: false;*/
